@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Pokemon Watch Face</string>
+    <string name="my_digital_name">Pokemon</string>
+    <string name="title_activity_settings">Pokemon Settings</string>
+</resources>
