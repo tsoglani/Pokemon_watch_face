@@ -177,13 +177,13 @@ public class Settings extends Activity {
 
     }
 
-    protected static final String MY_PREFS_NAME = "Minecraft_watch_FacePref";
-    protected static final String CHANGE_BACKGROUND_ON_CLICK = "isChangingBackgoundByTouch_Minecraft";
-    protected static final String CHANGE_ANIMATION_ON_CLICK = "isChangingAnimationByTouch_Minecraft";
+    protected static final String MY_PREFS_NAME = "Pokemon_watch_FacePref";
+    protected static final String CHANGE_BACKGROUND_ON_CLICK = "isChangingBackgoundByTouch_Pokemon";
+    protected static final String CHANGE_ANIMATION_ON_CLICK = "isChangingAnimationByTouch_Pokemon";
 
-    protected static final String HOUR_TYPE = "Hour_type_Minecraft";
-    protected static final String DATE_TYPE = "Date_type_Minecraft";
-    protected static final String ENABLE_ANIMATION = "is enable animation_Minecraft";
+    protected static final String HOUR_TYPE = "Hour_type_Pokemon";
+    protected static final String DATE_TYPE = "Date_type_Pokemon";
+    protected static final String ENABLE_ANIMATION = "is enable animation_Pokemon";
 
 
     private boolean getSharedPref(String text, boolean defVal) {

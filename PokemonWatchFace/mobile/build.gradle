@@ -14,6 +14,8 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            multiDexEnabled true
+
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -24,6 +26,8 @@ dependencies {
     wearApp project(':wear')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:24.0.0'
+    compile 'com.android.support:multidex:1.0.0'
+
     compile 'com.google.android.gms:play-services:9.2.0'
 
 }
