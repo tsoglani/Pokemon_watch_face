@@ -241,56 +241,48 @@ public class MyWatchFace extends CanvasWatchFaceService {
 
         private void initAnimationList() {
             animationList.add(R.raw.one);
-            animationList.add(R.raw.two);
-            animationList.add(R.raw.three);
+
+
 //            animationList.add(R.raw.four);
-            animationList.add(R.raw.five);
-            animationList.add(R.raw.six);
+
             animationList.add(R.raw.seven);
-            animationList.add(R.raw.eight);
+            animationList.add(R.raw.thirtytwo);
+
+
             animationList.add(R.raw.nine);
-            animationList.add(R.raw.ten);
-            animationList.add(R.raw.eleven);
+
             animationList.add(R.raw.twelve);
-            animationList.add(R.raw.thirteen);
-            animationList.add(R.raw.fourteen);
             animationList.add(R.raw.fifteen);
             animationList.add(R.raw.sixteen);
 //            animationList.add(R.raw.seventeen);
 //            animationList.add(R.raw.eighteen);
             animationList.add(R.raw.nineteen);
             animationList.add(R.raw.twenty);
-            animationList.add(R.raw.twentyone);
-            animationList.add(R.raw.twentytwo);
+//            animationList.add(R.raw.twentyone);
             animationList.add(R.raw.twentythree);
             animationList.add(R.raw.twentyfour);
             animationList.add(R.raw.twentyfive);
             animationList.add(R.raw.twentysix);
             animationList.add(R.raw.twentyseven);
-            animationList.add(R.raw.twentyeight);
-            animationList.add(R.raw.twentynine);
             animationList.add(R.raw.thirty);
-            animationList.add(R.raw.thirtyone);
-            animationList.add(R.raw.thirtytwo);
             animationList.add(R.raw.thirtythree);
             animationList.add(R.raw.thirtyfour);
             animationList.add(R.raw.thirtyfive);
 //            animationList.add(R.raw.thirtysix);
             animationList.add(R.raw.thirtyseven);
             animationList.add(R.raw.thirtyeight);
-            animationList.add(R.raw.thirtynine);
             animationList.add(R.raw.fourty);
 //            animationList.add(R.raw.fourtyone);
 
 
 
-
+            animationList.add(R.raw.eight);
 //            animationList.add(R.raw.fourtytwo);
             animationList.add(R.raw.fourtythree);
-            animationList.add(R.raw.fourtyfour);
             animationList.add(R.raw.fourtyfive);
             animationList.add(R.raw.fourtysix);
             animationList.add(R.raw.fourtyseven);
+            animationList.add(R.raw.twentytwo);
             animationList.add(R.raw.fourtyeight);
             animationList.add(R.raw.fourtynine);
             animationList.add(R.raw.fifty);
@@ -299,19 +291,34 @@ public class MyWatchFace extends CanvasWatchFaceService {
             animationList.add(R.raw.fiftytwo);
             animationList.add(R.raw.fiftythree);
             animationList.add(R.raw.fiftyfour);
-            animationList.add(R.raw.fiftyfive);
             animationList.add(R.raw.fiftysix);
             animationList.add(R.raw.fiftyseven);
             animationList.add(R.raw.fiftyeight);
             animationList.add(R.raw.fiftynine);
+            animationList.add(R.raw.fiftyfive);
+
+            animationList.add(R.raw.two);
+            animationList.add(R.raw.three);
 
             animationList.add(R.raw.sixty);
-            animationList.add(R.raw.sixtyone);
-            animationList.add(R.raw.sixtytwo);
+//            animationList.add(R.raw.sixtytwo);
             animationList.add(R.raw.sixtythree);
 
 
+            animationList.add(R.raw.five);
+            animationList.add(R.raw.six);
+            animationList.add(R.raw.ten);
+            animationList.add(R.raw.eleven);
+            animationList.add(R.raw.fourtyfour);
+            animationList.add(R.raw.twentyeight);
 
+            animationList.add(R.raw.thirtynine);
+
+            animationList.add(R.raw.sixtyone);
+            animationList.add(R.raw.thirtyone);
+            animationList.add(R.raw.fourteen);
+
+            animationList.add(R.raw.twentynine);
 
         }
 
