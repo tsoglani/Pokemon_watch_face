@@ -248,19 +248,21 @@ public class MyWatchFace extends CanvasWatchFaceService {
             animationList.add(R.raw.seven);
             animationList.add(R.raw.thirtytwo);
 
+            animationList.add(R.raw.eleven);
 
             animationList.add(R.raw.nine);
 
-            animationList.add(R.raw.twelve);
             animationList.add(R.raw.fifteen);
             animationList.add(R.raw.sixteen);
 //            animationList.add(R.raw.seventeen);
 //            animationList.add(R.raw.eighteen);
+            animationList.add(R.raw.twentyfour);
+
             animationList.add(R.raw.nineteen);
+            animationList.add(R.raw.twelve);//mewtwo
             animationList.add(R.raw.twenty);
 //            animationList.add(R.raw.twentyone);
             animationList.add(R.raw.twentythree);
-            animationList.add(R.raw.twentyfour);
             animationList.add(R.raw.twentyfive);
             animationList.add(R.raw.twentysix);
             animationList.add(R.raw.twentyseven);
@@ -292,10 +294,8 @@ public class MyWatchFace extends CanvasWatchFaceService {
             animationList.add(R.raw.fiftythree);
             animationList.add(R.raw.fiftyfour);
             animationList.add(R.raw.fiftysix);
-            animationList.add(R.raw.fiftyseven);
             animationList.add(R.raw.fiftyeight);
             animationList.add(R.raw.fiftynine);
-            animationList.add(R.raw.fiftyfive);
 
             animationList.add(R.raw.two);
             animationList.add(R.raw.three);
@@ -303,14 +303,15 @@ public class MyWatchFace extends CanvasWatchFaceService {
             animationList.add(R.raw.sixty);
 //            animationList.add(R.raw.sixtytwo);
             animationList.add(R.raw.sixtythree);
+            animationList.add(R.raw.ten);
 
 
             animationList.add(R.raw.five);
             animationList.add(R.raw.six);
-            animationList.add(R.raw.ten);
-            animationList.add(R.raw.eleven);
             animationList.add(R.raw.fourtyfour);
             animationList.add(R.raw.twentyeight);
+            animationList.add(R.raw.fiftyfive);
+            animationList.add(R.raw.fiftyseven);
 
             animationList.add(R.raw.thirtynine);
 
