@@ -15,6 +15,7 @@
  */
 
 package tsoglani.pokemon.watch_face.pokemonwatchface;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -28,6 +29,7 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
+import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -52,7 +54,7 @@ import java.util.Date;
 import java.util.TimeZone;
 
 public class MyWatchFace extends CanvasWatchFaceService {
-    protected static boolean isChangingBackgoundByTouch;
+    protected static boolean isChangingBackgoundByTouch,isBatteryVisible=true;;
     protected static boolean isChangingAnimationByTouch;
     protected static boolean is24HourType = true;
     protected static boolean isDateVisible = false;
@@ -137,6 +139,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
         private Bitmap scaledNine_amb_bitmap;
         private Bitmap scaledSix_amb_bitmap;
         private Bitmap scaledSeven_amb_bitmap;
+        private Bitmap batteryBitmap,batteryScaledBitmap,batteryBitmap_abc,batteryScaledBitmap_abc;
 
 
         ArrayList<Integer> backgroundList = new ArrayList<>();
@@ -197,6 +200,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
             isChangingBackgoundByTouch = Settings.getSharedPref(getApplicationContext(), Settings.CHANGE_BACKGROUND_ON_CLICK, true);
             isChangingAnimationByTouch= Settings.getSharedPref(getApplicationContext(), Settings.CHANGE_ANIMATION_ON_CLICK, false);
             is24HourType = Settings.getSharedPref(getApplicationContext(), Settings.HOUR_TYPE, true);
+            isBatteryVisible=Settings.getSharedPref(getApplicationContext(),Settings.ENABLE_BATTERY, false);
 
             isDateVisible = Settings.getSharedPref(getApplicationContext(), Settings.DATE_TYPE, false);
             isEnableAnimation = Settings.getSharedPref(getApplicationContext(), Settings.ENABLE_ANIMATION, true);
@@ -591,6 +595,9 @@ public class MyWatchFace extends CanvasWatchFaceService {
             date_bitmap = ((BitmapDrawable) resources.getDrawable(R.drawable.date, null)).getBitmap();
 
             seconds_bitmap = ((BitmapDrawable) resources.getDrawable(R.drawable.sec, null)).getBitmap();
+            batteryBitmap = ((BitmapDrawable) resources.getDrawable(R.drawable.battery_2, null)).getBitmap();
+            batteryBitmap_abc = ((BitmapDrawable) resources.getDrawable(R.drawable.battery_2_abc, null)).getBitmap();
+
 
 
             zero_amb_bitmap = ((BitmapDrawable) resources.getDrawable(R.drawable.amb_number0, null)).getBitmap();
@@ -646,6 +653,9 @@ public class MyWatchFace extends CanvasWatchFaceService {
             dateBitmap_Scalled = getScaledBitmap(date_bitmap);
             dateBitmap_abc_Scalled = getScaledBitmap(date_amb_bitmap);
             secondsBlockBitmapScalled_abc = getScaledBitmap(seconds_bitmap_abc);
+            batteryScaledBitmap = getScaledBitmap(batteryBitmap);
+            batteryScaledBitmap_abc = getScaledBitmap(batteryBitmap_abc);
+
 
 
             scaledZero_bitmap = getScaledBitmap(zero_bitmap);
@@ -670,6 +680,10 @@ public class MyWatchFace extends CanvasWatchFaceService {
             blockStartY = 50f * mainScaleX;
             blockStartX = (width / 2) - blockScaledBitmap.getWidth();
             numberStartY = blockStartY + blockScaledBitmap.getHeight() / 3;
+
+            Bitmap num1Bitmap = getTimeBitmap(0);
+            numberStartY = blockStartY + blockScaledBitmap.getHeight() /2-num1Bitmap.getHeight()/2;
+
 
         }
 
@@ -1019,18 +1033,24 @@ public class MyWatchFace extends CanvasWatchFaceService {
             }
 
 
+
+
+
             Paint secontPaint = new Paint();
             secontPaint.setFakeBoldText(true);
             secontPaint.setTextSize(num4Bitmap.getWidth() / 2);
+            secontPaint.setColor(getResources().getColor(R.color.black));
+            secontPaint.setTypeface(Typeface.create(Typeface.DEFAULT_BOLD, Typeface.BOLD));
 
 
 
 
-
-            float secX = width / 2 + 8 * blockScaledBitmap.getWidth() / 9.0f, secY = blockScaledBitmap.getHeight();
+            float secX = width / 2 + 8 * blockScaledBitmap.getWidth() / 9.0f, secY = blockStartY+blockScaledBitmap.getHeight();
             canvas.drawBitmap(isInAmbientMode() ? secondsBlockBitmapScalled_abc : secondsBlockBitmapScalled, secX, secY, null);
             if (!isInAmbientMode()) {
-                canvas.drawText(mTime.second >= 10 ? Integer.toString(mTime.second) : "0" + Integer.toString(mTime.second), secX + secondsBlockBitmapScalled.getWidth() / 5, 2 * secondsBlockBitmapScalled.getHeight() / 3 + secY, secontPaint);
+
+
+                canvas.drawText(mTime.second >= 10 ? Integer.toString(mTime.second) : "0" + Integer.toString(mTime.second), secX + secondsBlockBitmapScalled.getWidth() / 7, 3 * secondsBlockBitmapScalled.getHeight() / 4 + secY, secontPaint);
             }
 //            canvas.drawRect(cardBounds, mainPaint);
 
@@ -1038,6 +1058,20 @@ public class MyWatchFace extends CanvasWatchFaceService {
 //            else {
 //                animationCounter = 0;
 //            }
+
+            if(isBatteryVisible){
+                Paint bp= new Paint();
+                bp.setTextSize(17);
+                bp.setTypeface(Typeface.create(Typeface.DEFAULT_BOLD, Typeface.BOLD_ITALIC));
+                canvas.drawBitmap((isInAmbientMode())?batteryScaledBitmap_abc:batteryScaledBitmap,20,blockStartY+blockScaledBitmap.getHeight(),null);
+                IntentFilter iFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+                Intent batteryStatus = getApplicationContext().registerReceiver(null, iFilter);
+                if(isInAmbientMode()){
+                    bp.setColor(getResources().getColor(R.color.MilkWhite));
+                }
+
+                canvas.drawText(Integer.toString( batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1))+"%",20+batteryScaledBitmap.getWidth()/4,(blockStartY+blockScaledBitmap.getHeight()+2*batteryScaledBitmap.getHeight()/3.0f),bp);
+            }
 
             previousHour = tempHour;
             previousMinute = tempMinute;

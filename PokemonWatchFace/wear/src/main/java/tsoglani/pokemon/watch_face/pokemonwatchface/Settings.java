@@ -23,6 +23,7 @@ public class Settings extends Activity {
         change_animation_manual = (RadioButton) findViewById(R.id.change_animation);
         radio_group=(RadioGroup)findViewById(R.id.radio_group);
         do_nothing = (RadioButton) findViewById(R.id.no_change);
+        battery_enable= (CheckBox) findViewById(R.id.enable_battery);
 
         change_hour_type = (CheckBox) findViewById(R.id.hour_type);
         date_visible= (CheckBox) findViewById(R.id.date_visible);
@@ -51,7 +52,11 @@ public class Settings extends Activity {
             date_visible.setChecked(false);
         }
 
-
+        if (MyWatchFace.isBatteryVisible) {
+            battery_enable.setChecked(true);
+        } else {
+            battery_enable.setChecked(false);
+        }
 
 
         if (MyWatchFace.isEnableAnimation) {
@@ -64,7 +69,7 @@ public class Settings extends Activity {
 
     private RadioButton change_background_manual,change_animation_manual,do_nothing;
     private RadioGroup radio_group;
-    private CheckBox change_hour_type,date_visible;
+    private CheckBox change_hour_type,date_visible,battery_enable;
     private CheckBox enable_animation;
 
     private void addListener() {
@@ -161,7 +166,17 @@ public class Settings extends Activity {
             }
         });
 
+        battery_enable.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
+                storeSharePref(ENABLE_BATTERY, isChecked);
+                MyWatchFace.isBatteryVisible = isChecked;
+
+
+
+            }
+        });
         enable_animation.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -181,7 +196,7 @@ public class Settings extends Activity {
     protected static final String CHANGE_BACKGROUND_ON_CLICK = "isChangingBackgoundByTouch_Pokemon";
     protected static final String CHANGE_ANIMATION_ON_CLICK = "isChangingAnimationByTouch_Pokemon";
 
-    protected static final String HOUR_TYPE = "Hour_type_Pokemon";
+    protected static final String HOUR_TYPE = "Hour_type_Pokemon",ENABLE_BATTERY="Enable_Battery_pokemon";
     protected static final String DATE_TYPE = "Date_type_Pokemon";
     protected static final String ENABLE_ANIMATION = "is enable animation_Pokemon";
 
