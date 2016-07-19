@@ -23,9 +23,11 @@ import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Movie;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
@@ -37,6 +39,7 @@ import android.os.PowerManager;
 import android.support.wearable.watchface.CanvasWatchFaceService;
 import android.support.wearable.watchface.WatchFaceStyle;
 import android.text.format.Time;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.SurfaceHolder;
@@ -54,7 +57,7 @@ import java.util.Date;
 import java.util.TimeZone;
 
 public class MyWatchFace extends CanvasWatchFaceService {
-    protected static boolean isChangingBackgoundByTouch,isBatteryVisible=true;;
+    protected static boolean isChangingBackgoundByTouch,isBatteryVisible;
     protected static boolean isChangingAnimationByTouch;
     protected static boolean is24HourType = true;
     protected static boolean isDateVisible = false;
@@ -156,7 +159,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
         private Bitmap seven_bitmap;
         private Bitmap eight_bitmap;
         private Bitmap nine_bitmap;
-        private Bitmap seconds_bitmap, seconds_bitmap_abc;
+        //        private Bitmap seconds_bitmap, seconds_bitmap_abc;
         private Bitmap scaledZero_bitmap;
         private Bitmap scaledOne_bitmap;
         private Bitmap scaledTwo_bitmap;
@@ -169,10 +172,10 @@ public class MyWatchFace extends CanvasWatchFaceService {
         private Bitmap scaledNine_bitmap;
         private Bitmap blockScaledBitmap;
         private Bitmap blockBitmap, blockBitmap_abc, blockBitmap_abc_Scalled;
-        private Bitmap secondsBlockBitmapScalled, secondsBlockBitmapScalled_abc;
+//        private Bitmap secondsBlockBitmapScalled, secondsBlockBitmapScalled_abc;
 
 
-        private Bitmap date_bitmap, date_amb_bitmap, dateBitmap_abc_Scalled,dateBitmap_Scalled;
+//        private Bitmap date_bitmap, date_amb_bitmap, dateBitmap_abc_Scalled,dateBitmap_Scalled;
 
         float blockStartX = 20;
         float blockStartY = 30;
@@ -245,90 +248,83 @@ public class MyWatchFace extends CanvasWatchFaceService {
 
         private void initAnimationList() {
             animationList.add(R.raw.one);
-
-
+            animationList.add(R.raw.two);
+            animationList.add(R.raw.three);
 //            animationList.add(R.raw.four);
-
+            animationList.add(R.raw.five);
+            animationList.add(R.raw.six);
             animationList.add(R.raw.seven);
-            animationList.add(R.raw.thirtytwo);
-
-            animationList.add(R.raw.eleven);
-
+            animationList.add(R.raw.eight);
             animationList.add(R.raw.nine);
-
+            animationList.add(R.raw.ten);
+            animationList.add(R.raw.eleven);
+            animationList.add(R.raw.twelve);
+            animationList.add(R.raw.thirteen);
+            animationList.add(R.raw.fourteen);
             animationList.add(R.raw.fifteen);
+
             animationList.add(R.raw.sixteen);
 //            animationList.add(R.raw.seventeen);
 //            animationList.add(R.raw.eighteen);
-            animationList.add(R.raw.twentyfour);
-
             animationList.add(R.raw.nineteen);
-            animationList.add(R.raw.twelve);//mewtwo
             animationList.add(R.raw.twenty);
-//            animationList.add(R.raw.twentyone);
+            animationList.add(R.raw.twentyone);
+            animationList.add(R.raw.twentytwo);
             animationList.add(R.raw.twentythree);
+            animationList.add(R.raw.twentyfour);
             animationList.add(R.raw.twentyfive);
             animationList.add(R.raw.twentysix);
             animationList.add(R.raw.twentyseven);
-            animationList.add(R.raw.thirty);
+            animationList.add(R.raw.twentyeight);
+            animationList.add(R.raw.twentynine);
+//            animationList.add(R.raw.thirty);
+
+
+
+
+            animationList.add(R.raw.thirtyone);
+            animationList.add(R.raw.thirtytwo);
             animationList.add(R.raw.thirtythree);
             animationList.add(R.raw.thirtyfour);
             animationList.add(R.raw.thirtyfive);
 //            animationList.add(R.raw.thirtysix);
             animationList.add(R.raw.thirtyseven);
             animationList.add(R.raw.thirtyeight);
-            animationList.add(R.raw.fourty);
-//            animationList.add(R.raw.fourtyone);
-
-
-
-            animationList.add(R.raw.eight);
+            animationList.add(R.raw.thirtynine);
+//            animationList.add(R.raw.forty);
+            animationList.add(R.raw.fourtyone);
 //            animationList.add(R.raw.fourtytwo);
             animationList.add(R.raw.fourtythree);
+            animationList.add(R.raw.fourtyfour);
             animationList.add(R.raw.fourtyfive);
             animationList.add(R.raw.fourtysix);
             animationList.add(R.raw.fourtyseven);
-            animationList.add(R.raw.twentytwo);
             animationList.add(R.raw.fourtyeight);
             animationList.add(R.raw.fourtynine);
             animationList.add(R.raw.fifty);
+
+
 
             animationList.add(R.raw.fiftyone);
             animationList.add(R.raw.fiftytwo);
             animationList.add(R.raw.fiftythree);
             animationList.add(R.raw.fiftyfour);
-            animationList.add(R.raw.fiftysix);
-            animationList.add(R.raw.fiftyeight);
-            animationList.add(R.raw.fiftynine);
-
-            animationList.add(R.raw.two);
-            animationList.add(R.raw.three);
-
-            animationList.add(R.raw.sixty);
-//            animationList.add(R.raw.sixtytwo);
-            animationList.add(R.raw.sixtythree);
-            animationList.add(R.raw.ten);
-
-
-            animationList.add(R.raw.five);
-            animationList.add(R.raw.six);
-            animationList.add(R.raw.fourtyfour);
-            animationList.add(R.raw.twentyeight);
             animationList.add(R.raw.fiftyfive);
+            animationList.add(R.raw.fiftysix);
             animationList.add(R.raw.fiftyseven);
+            animationList.add(R.raw.fiftyeight);
 
-            animationList.add(R.raw.thirtynine);
 
+            animationList.add(R.raw.fiftynine);
+            animationList.add(R.raw.sixty);
             animationList.add(R.raw.sixtyone);
-            animationList.add(R.raw.thirtyone);
-            animationList.add(R.raw.fourteen);
-
-            animationList.add(R.raw.twentynine);
+            animationList.add(R.raw.sixtytwo);
+            animationList.add(R.raw.sixtythree);
 
         }
 
         Gif myGif;
-        boolean isLoaded = false;
+        boolean isLoaded = true;
 
         private void loadAnimation(final int id) {
             isLoaded = false;
@@ -393,7 +389,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
             if (animationCounter >= myGif.getFrames().length) {
 //                animationCounter = 0;
                 animationCounter = myGif.getFrames().length - 1;
-                isAnimationActivate = false;
+
 //                changeAnimation();
                 fadeOut();
             }
@@ -488,7 +484,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
                     paint.setAlpha(alpha);
                     animationCounter = 0;
 
-
+                    isAnimationActivate = false;
                 }
             }.start();
         }
@@ -496,7 +492,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
         private int animationNumber = 0;
 
         private void changeAnimation() {
-            if (isAnimationActivate) {
+            if (isAnimationActivate||!isLoaded) {
                 return;
             }
             animationNumber++;
@@ -581,6 +577,9 @@ public class MyWatchFace extends CanvasWatchFaceService {
             }
             Resources resources = getResources();
 
+            batteryBitmap = ((BitmapDrawable) resources.getDrawable(R.drawable.battery_2, null)).getBitmap();
+            batteryBitmap_abc = ((BitmapDrawable) resources.getDrawable(R.drawable.battery_2_abc, null)).getBitmap();
+
             zero_bitmap = ((BitmapDrawable) resources.getDrawable(R.drawable.number0, null)).getBitmap();
             one_bitmap = ((BitmapDrawable) resources.getDrawable(R.drawable.number1, null)).getBitmap();
             two_bitmap = ((BitmapDrawable) resources.getDrawable(R.drawable.number2, null)).getBitmap();
@@ -592,12 +591,8 @@ public class MyWatchFace extends CanvasWatchFaceService {
             eight_bitmap = ((BitmapDrawable) resources.getDrawable(R.drawable.number8, null)).getBitmap();
             nine_bitmap = ((BitmapDrawable) resources.getDrawable(R.drawable.number9, null)).getBitmap();
             blockBitmap = ((BitmapDrawable) resources.getDrawable(R.drawable.brick, null)).getBitmap();
-            date_bitmap = ((BitmapDrawable) resources.getDrawable(R.drawable.date, null)).getBitmap();
 
-            seconds_bitmap = ((BitmapDrawable) resources.getDrawable(R.drawable.sec, null)).getBitmap();
-            batteryBitmap = ((BitmapDrawable) resources.getDrawable(R.drawable.battery_2, null)).getBitmap();
-            batteryBitmap_abc = ((BitmapDrawable) resources.getDrawable(R.drawable.battery_2_abc, null)).getBitmap();
-
+//            seconds_bitmap = ((BitmapDrawable) resources.getDrawable(R.drawable.sec, null)).getBitmap();
 
 
             zero_amb_bitmap = ((BitmapDrawable) resources.getDrawable(R.drawable.amb_number0, null)).getBitmap();
@@ -611,8 +606,8 @@ public class MyWatchFace extends CanvasWatchFaceService {
             eight_amb_bitmap = ((BitmapDrawable) resources.getDrawable(R.drawable.amb_number8, null)).getBitmap();
             nine_amb_bitmap = ((BitmapDrawable) resources.getDrawable(R.drawable.amb_number9, null)).getBitmap();
             blockBitmap_abc = ((BitmapDrawable) resources.getDrawable(R.drawable.brick_abc, null)).getBitmap();
-            seconds_bitmap_abc = ((BitmapDrawable) resources.getDrawable(R.drawable.sec_abc, null)).getBitmap();
-            date_amb_bitmap = ((BitmapDrawable) resources.getDrawable(R.drawable.date_abc, null)).getBitmap();
+//            seconds_bitmap_abc = ((BitmapDrawable) resources.getDrawable(R.drawable.sec_abc, null)).getBitmap();
+//            date_amb_bitmap = ((BitmapDrawable) resources.getDrawable(R.drawable.date_abc, null)).getBitmap();
 
 
 //            zero_amb_bitmap = ((BitmapDrawable) resources.getDrawable(R.drawable.amb_number0, null)).getBitmap();
@@ -650,12 +645,12 @@ public class MyWatchFace extends CanvasWatchFaceService {
             scaledEight_amb_bitmap = getScaledBitmap(eight_amb_bitmap);
             scaledNine_amb_bitmap = getScaledBitmap(nine_amb_bitmap);
             blockBitmap_abc_Scalled = getScaledBitmap(blockBitmap_abc);
-            dateBitmap_Scalled = getScaledBitmap(date_bitmap);
-            dateBitmap_abc_Scalled = getScaledBitmap(date_amb_bitmap);
-            secondsBlockBitmapScalled_abc = getScaledBitmap(seconds_bitmap_abc);
+
             batteryScaledBitmap = getScaledBitmap(batteryBitmap);
             batteryScaledBitmap_abc = getScaledBitmap(batteryBitmap_abc);
-
+//            dateBitmap_Scalled = getScaledBitmap(date_bitmap);
+//            dateBitmap_abc_Scalled = getScaledBitmap(date_amb_bitmap);
+//            secondsBlockBitmapScalled_abc = getScaledBitmap(seconds_bitmap_abc);
 
 
             scaledZero_bitmap = getScaledBitmap(zero_bitmap);
@@ -669,7 +664,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
             scaledEight_bitmap = getScaledBitmap(eight_bitmap);
             scaledNine_bitmap = getScaledBitmap(nine_bitmap);
             blockScaledBitmap = getScaledBitmap(blockBitmap);
-            secondsBlockBitmapScalled = getScaledBitmap(seconds_bitmap);
+//            secondsBlockBitmapScalled = getScaledBitmap(seconds_bitmap);
         }
 
         private void initValues() {
@@ -679,12 +674,9 @@ public class MyWatchFace extends CanvasWatchFaceService {
             int height = display.getHeight();
             blockStartY = 50f * mainScaleX;
             blockStartX = (width / 2) - blockScaledBitmap.getWidth();
-            numberStartY = blockStartY + blockScaledBitmap.getHeight() / 3;
-
             Bitmap num1Bitmap = getTimeBitmap(0);
+
             numberStartY = blockStartY + blockScaledBitmap.getHeight() /2-num1Bitmap.getHeight()/2;
-
-
         }
 
 //        @Override
@@ -956,10 +948,52 @@ public class MyWatchFace extends CanvasWatchFaceService {
             }
 
 
-            canvas.drawBitmap(isInAmbientMode() ? blockBitmap_abc_Scalled : blockScaledBitmap, blockStartX, blockStartY, null);
-            canvas.drawBitmap(isInAmbientMode() ? blockBitmap_abc_Scalled : blockScaledBitmap, width/2, blockStartY, null);
+            canvas.drawBitmap(isInAmbientMode() ? blockBitmap_abc_Scalled : blockScaledBitmap, width/2-blockScaledBitmap.getWidth()-10, blockStartY, null);
+            canvas.drawBitmap(isInAmbientMode() ? blockBitmap_abc_Scalled : blockScaledBitmap, width/2+10, blockStartY, null);
+
+            if(!isInAmbientMode()) {// draw energy
+                Paint transPaint= new Paint();
+                transPaint.setColor(getResources().getColor(R.color.transparent_black_percent_75));
+//                canvas.drawRect(width/2-blockScaledBitmap.getWidth()-10, blockStartY,width/2-blockScaledBitmap.getWidth()-10+ blockScaledBitmap.getWidth(), blockStartY+blockScaledBitmap.getHeight(), transPaint);
+//                canvas.drawRect(width/2+10, blockStartY,width/2+10+ blockScaledBitmap.getWidth(), blockStartY+blockScaledBitmap.getHeight(), transPaint);
 
 
+                Paint redPaint= new Paint();
+                redPaint.setColor(getResources().getColor(R.color.dark_red));
+                Paint greenPaint= new Paint();
+                greenPaint.setColor(getResources().getColor(R.color.ForestGreen));
+                float hourX=width / 2 - blockScaledBitmap.getWidth() - 10;
+
+                float hourTotalEndWidth=width / 2 - blockScaledBitmap.getWidth() - 10+ blockScaledBitmap.getWidth();
+                float hourDistanse=hourTotalEndWidth-hourX;
+
+                int usedTempHour=tempHour;
+                if(!is24HourType&&hourExtra.equals("PM")){
+                    usedTempHour+=12;
+                }
+                float distanseGreen=hourDistanse*(1-usedTempHour/23.0f);
+
+                float energyBottomY=blockStartY+blockScaledBitmap.getHeight()-dpToPx(2);
+
+
+                float distanceY=dpToPx(5);
+
+
+                canvas.drawRect(hourX,energyBottomY-distanceY,hourX+distanseGreen, energyBottomY, greenPaint);
+                canvas.drawRect(hourX+distanseGreen,  energyBottomY-distanceY, hourTotalEndWidth,energyBottomY, redPaint);
+
+
+                float minX=width/2+10;
+
+                float minTotalEndWidth=width/2+10+ blockScaledBitmap.getWidth();
+                float minDistanse=minTotalEndWidth-minX;
+
+                float distanseMinGreen=minDistanse*(1-tempMinute/59.0f);
+
+                canvas.drawRect(minX, energyBottomY-distanceY,minX+distanseMinGreen, energyBottomY, greenPaint);
+                canvas.drawRect(minX+distanseMinGreen, energyBottomY-distanceY, minTotalEndWidth, energyBottomY, redPaint);
+
+            }
             if (!isInAmbientMode()) {
                 if (previousMinute != tempMinute) {
 
@@ -972,7 +1006,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
 
             Bitmap num1Bitmap = getTimeBitmap(timeTextOneByOne);
 
-            numberHourX1 = blockStartX + blockScaledBitmap.getWidth() / 10;
+            numberHourX1 = blockStartX + blockScaledBitmap.getWidth() / 10-10;
 
 
             canvas.drawBitmap(num1Bitmap, numberHourX1, numberStartY, null);
@@ -983,6 +1017,8 @@ public class MyWatchFace extends CanvasWatchFaceService {
             } else {
                 timeTextOneByOne = tempHour - ((tempHour / 10) * 10);
             }
+
+
 
             numberHourX2 = numberHourX1 + num1Bitmap.getWidth();
             Bitmap num2Bitmap = getTimeBitmap(timeTextOneByOne);
@@ -999,7 +1035,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
             }
             Bitmap num3Bitmap = getTimeBitmap(timeTextOneByOne);
 
-            numberMinuteX1 = blockStartX + blockScaledBitmap.getWidth() + 5 + blockScaledBitmap.getWidth() / 10;
+            numberMinuteX1 = blockStartX + blockScaledBitmap.getWidth() + 5 + blockScaledBitmap.getWidth() / 10+10;
 
             canvas.drawBitmap(num3Bitmap, numberMinuteX1, numberStartY, null);
             if (tempMinute < 10) {
@@ -1019,45 +1055,18 @@ public class MyWatchFace extends CanvasWatchFaceService {
 
                 String formattedDate =  c.get(Calendar.DAY_OF_MONTH)+"/"+ c.get(Calendar.MONTH)+"/"+ Integer.toString(c.get(Calendar.YEAR)).substring(Integer.toString(c.get(Calendar.YEAR)).length()-2);
 
-                paint2.setTextSize(23);
+                paint2.setTextSize( (int)((blockScaledBitmap.getHeight()-(num4Bitmap.getHeight()))/2.5));
                 paint2.setTypeface(Typeface.create(Typeface.DEFAULT_BOLD, Typeface.BOLD_ITALIC));
 
-                canvas.drawText(formattedDate, (int)(numberHourX1+num1Bitmap.getHeight()/3), numberStartY+num4Bitmap.getHeight()+22, paint2);
+                canvas.drawText(formattedDate, (int)(numberHourX1+num1Bitmap.getHeight()/3),blockScaledBitmap.getHeight()+blockStartY, paint2);
             }
 
             if(!is24HourType){
                 paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.ITALIC));
-                paint.setTextSize(20);
-                canvas.drawText(hourExtra, (int)(width/2+3*blockScaledBitmap.getWidth()/7.0), numberStartY+num4Bitmap.getHeight()+22, paint);
+                paint.setTextSize( (int)((blockScaledBitmap.getHeight()-(num4Bitmap.getHeight()))/2.5));
+                canvas.drawText(hourExtra, (int)(width/2+3*blockScaledBitmap.getWidth()/7.0),blockScaledBitmap.getHeight()+blockStartY, paint);
 
             }
-
-
-
-
-
-            Paint secontPaint = new Paint();
-            secontPaint.setFakeBoldText(true);
-            secontPaint.setTextSize(num4Bitmap.getWidth() / 2);
-            secontPaint.setColor(getResources().getColor(R.color.black));
-            secontPaint.setTypeface(Typeface.create(Typeface.DEFAULT_BOLD, Typeface.BOLD));
-
-
-
-
-            float secX = width / 2 + 8 * blockScaledBitmap.getWidth() / 9.0f, secY = blockStartY+blockScaledBitmap.getHeight();
-            canvas.drawBitmap(isInAmbientMode() ? secondsBlockBitmapScalled_abc : secondsBlockBitmapScalled, secX, secY, null);
-            if (!isInAmbientMode()) {
-
-
-                canvas.drawText(mTime.second >= 10 ? Integer.toString(mTime.second) : "0" + Integer.toString(mTime.second), secX + secondsBlockBitmapScalled.getWidth() / 7, 3 * secondsBlockBitmapScalled.getHeight() / 4 + secY, secontPaint);
-            }
-//            canvas.drawRect(cardBounds, mainPaint);
-
-
-//            else {
-//                animationCounter = 0;
-//            }
 
             if(isBatteryVisible){
                 Paint bp= new Paint();
@@ -1073,10 +1082,83 @@ public class MyWatchFace extends CanvasWatchFaceService {
                 canvas.drawText(Integer.toString( batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1))+"%",20+batteryScaledBitmap.getWidth()/4,(blockStartY+blockScaledBitmap.getHeight()+2*batteryScaledBitmap.getHeight()/3.0f),bp);
             }
 
+//            canvas.drawBitmap(isInAmbientMode() ? secondsBlockBitmapScalled_abc : secondsBlockBitmapScalled, secX, secY, null);
+            if (!isInAmbientMode()) {
+                Paint secontPaint = new Paint();
+                secontPaint.setFakeBoldText(true);
+                secontPaint.setColor(getResources().getColor(R.color.Wheat));
+                float secX = width / 2 -30, secY = blockScaledBitmap.getHeight()+blockStartY+55;
+                Paint backgroundSecWhitePaint=new Paint();
+                backgroundSecWhitePaint.setColor(getResources().getColor(R.color.transparent_white_percent_50));
+                Paint backgroundSecRedPaint=new Paint();
+                backgroundSecRedPaint.setColor(getColorWithAlpha(getResources().getColor(R.color.dark_red),0.8f));
+
+
+                Paint backgroundSecBlackPaint=new Paint();
+                backgroundSecBlackPaint.setColor(getResources().getColor(R.color.transparent_black_percent_50));
+//                backgroundSecRedPaint.setColor((getResources().getColor(R.color.dark_red)));
+
+//backgroundSecWhitePaint.setStyle(Paint.Style.FILL);
+                secontPaint.setTextSize(50);
+
+                RectF rectF=new RectF(secX-5 ,secY-50,secX+65,secY+10);
+                canvas.drawArc(rectF,180 , 180, true, backgroundSecRedPaint);
+//                canvas.drawOval(new RectF(secX-10 ,10+secY,secX+70,secY-50), backgroundSecWhitePaint);
+                canvas.drawArc(rectF, 0, 180, false, backgroundSecWhitePaint);
+                canvas.drawRect(rectF.left, rectF.top+rectF.height()/2-5, rectF.right, rectF.top+rectF.height()/2+5, backgroundSecBlackPaint);
+
+                Paint backgroundSecDarkBlackPaint=new Paint();
+                backgroundSecDarkBlackPaint.setColor(getResources().getColor(R.color.transparent_black_percent_30));
+//                backgroundSecRedPaint.setColor((getResources().getColor(R.color.dark_red)));
+
+//backgroundSecWhitePaint.setStyle(Paint.Style.FILL);
+
+
+                Paint backgroundSecLightWhitePaint=new Paint();
+                backgroundSecLightWhitePaint.setColor(getResources().getColor(R.color.transparent_white_percent_30));
+
+                canvas.drawOval(rectF.left+rectF.width()/2-15,rectF.top+rectF.height()/2-15,rectF.left+rectF.width()/2+15,rectF.top+rectF.height()/2+15,backgroundSecLightWhitePaint);
+
+
+
+                canvas.drawOval(rectF.left+rectF.width()/2-5,rectF.top+rectF.height()/2-5,rectF.left+rectF.width()/2+5,rectF.top+rectF.height()/2+5,backgroundSecDarkBlackPaint);
+                secontPaint.setTypeface(Typeface.create(Typeface.DEFAULT_BOLD, Typeface.BOLD));
+
+
+
+
+
+//                Paint backgroundSecWhitePaint=new Paint();
+//                backgroundSecWhitePaint.setColor(getResources().getColor(R.color.transparent_black_percent_50));
+//                canvas.drawRect( secX-5 ,5+secY,secX+45,secY-28, backgroundSecWhitePaint);
+
+                canvas.drawText(mTime.second >= 10 ? Integer.toString(mTime.second) : "0" + Integer.toString(mTime.second), secX ,secY, secontPaint);
+
+            }
+//            canvas.drawRect(cardBounds, mainPaint);
+
+
+//            else {
+//                animationCounter = 0;
+//            }
+
             previousHour = tempHour;
             previousMinute = tempMinute;
         }
-
+        public  int getColorWithAlpha(int color, float ratio) {
+            int newColor = 0;
+            int alpha = Math.round(Color.alpha(color) * ratio);
+            int r = Color.red(color);
+            int g = Color.green(color);
+            int b = Color.blue(color);
+            newColor = Color.argb(alpha, r, g, b);
+            return newColor;
+        }
+        public int dpToPx(int dp) {
+            DisplayMetrics displayMetrics =getResources().getDisplayMetrics();
+            int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+            return px;
+        }
         public Bitmap getTimeBitmap(int number) {
             switch (number) {
                 case 0:

@@ -57,7 +57,17 @@ public class Settings extends Activity {
         } else {
             battery_enable.setChecked(false);
         }
+        battery_enable.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
+                storeSharePref(ENABLE_BATTERY, isChecked);
+                MyWatchFace.isBatteryVisible = isChecked;
+
+
+
+            }
+        });
 
         if (MyWatchFace.isEnableAnimation) {
             enable_animation.setChecked(true);
@@ -69,8 +79,8 @@ public class Settings extends Activity {
 
     private RadioButton change_background_manual,change_animation_manual,do_nothing;
     private RadioGroup radio_group;
-    private CheckBox change_hour_type,date_visible,battery_enable;
-    private CheckBox enable_animation;
+    private CheckBox change_hour_type,date_visible;
+    private CheckBox enable_animation,battery_enable;
 
     private void addListener() {
 
@@ -166,17 +176,7 @@ public class Settings extends Activity {
             }
         });
 
-        battery_enable.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                storeSharePref(ENABLE_BATTERY, isChecked);
-                MyWatchFace.isBatteryVisible = isChecked;
-
-
-
-            }
-        });
         enable_animation.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -192,13 +192,13 @@ public class Settings extends Activity {
 
     }
 
-    protected static final String MY_PREFS_NAME = "Pokemon_watch_FacePref";
-    protected static final String CHANGE_BACKGROUND_ON_CLICK = "isChangingBackgoundByTouch_Pokemon";
-    protected static final String CHANGE_ANIMATION_ON_CLICK = "isChangingAnimationByTouch_Pokemon";
+    protected static final String MY_PREFS_NAME = "MortalKombat_watch_FacePref";
+    protected static final String CHANGE_BACKGROUND_ON_CLICK = "isChangingBackgoundByTouch_MortalKombat";
+    protected static final String CHANGE_ANIMATION_ON_CLICK = "isChangingAnimationByTouch_MortalKombat";
 
-    protected static final String HOUR_TYPE = "Hour_type_Pokemon",ENABLE_BATTERY="Enable_Battery_pokemon";
-    protected static final String DATE_TYPE = "Date_type_Pokemon";
-    protected static final String ENABLE_ANIMATION = "is enable animation_Pokemon";
+    protected static final String HOUR_TYPE = "Hour_type_MortalKombat";
+    protected static final String DATE_TYPE = "Date_type_MortalKombat";
+    protected static final String ENABLE_ANIMATION = "is enable animation_MortalKombat",ENABLE_BATTERY="Enable_Battery_Mortal";
 
 
     private boolean getSharedPref(String text, boolean defVal) {
