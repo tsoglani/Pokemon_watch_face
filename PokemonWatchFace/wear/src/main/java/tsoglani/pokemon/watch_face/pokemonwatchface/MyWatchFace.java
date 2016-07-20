@@ -57,10 +57,11 @@ import java.util.Date;
 import java.util.TimeZone;
 
 public class MyWatchFace extends CanvasWatchFaceService {
-    protected static boolean isChangingBackgoundByTouch,isBatteryVisible;
+    protected static boolean isChangingBackgoundByTouch, isBatteryVisible;
     protected static boolean isChangingAnimationByTouch;
     protected static boolean is24HourType = true;
     protected static boolean isDateVisible = false;
+    protected String pokemonName = "pikachu";
 
     protected static boolean isEnableAnimation = true;
 
@@ -142,7 +143,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
         private Bitmap scaledNine_amb_bitmap;
         private Bitmap scaledSix_amb_bitmap;
         private Bitmap scaledSeven_amb_bitmap;
-        private Bitmap batteryBitmap,batteryScaledBitmap,batteryBitmap_abc,batteryScaledBitmap_abc;
+        private Bitmap batteryBitmap, batteryScaledBitmap, batteryBitmap_abc, batteryScaledBitmap_abc;
 
 
         ArrayList<Integer> backgroundList = new ArrayList<>();
@@ -201,9 +202,9 @@ public class MyWatchFace extends CanvasWatchFaceService {
             PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
             wl = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "My Tag");
             isChangingBackgoundByTouch = Settings.getSharedPref(getApplicationContext(), Settings.CHANGE_BACKGROUND_ON_CLICK, true);
-            isChangingAnimationByTouch= Settings.getSharedPref(getApplicationContext(), Settings.CHANGE_ANIMATION_ON_CLICK, false);
+            isChangingAnimationByTouch = Settings.getSharedPref(getApplicationContext(), Settings.CHANGE_ANIMATION_ON_CLICK, false);
             is24HourType = Settings.getSharedPref(getApplicationContext(), Settings.HOUR_TYPE, true);
-            isBatteryVisible=Settings.getSharedPref(getApplicationContext(),Settings.ENABLE_BATTERY, false);
+            isBatteryVisible = Settings.getSharedPref(getApplicationContext(), Settings.ENABLE_BATTERY, false);
 
             isDateVisible = Settings.getSharedPref(getApplicationContext(), Settings.DATE_TYPE, false);
             isEnableAnimation = Settings.getSharedPref(getApplicationContext(), Settings.ENABLE_ANIMATION, true);
@@ -242,7 +243,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
         private void wakeUnlock() {
             try {
                 wl.release();
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 changeAnimation();
             }
@@ -258,7 +259,10 @@ public class MyWatchFace extends CanvasWatchFaceService {
 
             animationList.add(R.raw.six);
             animationList.add(R.raw.seven);
-//            animationList.add(R.raw.eight);
+            animationList.add(R.raw.eight);
+            animationList.add(R.raw.thirty);
+            animationList.add(R.raw.thirtysix);
+            animationList.add(R.raw.forty);
             animationList.add(R.raw.nine);
             animationList.add(R.raw.ten);
             animationList.add(R.raw.eleven);
@@ -285,20 +289,16 @@ public class MyWatchFace extends CanvasWatchFaceService {
             animationList.add(R.raw.twentysix);
             animationList.add(R.raw.twentyfive);
             animationList.add(R.raw.twentyseven);
-//            animationList.add(R.raw.thirty);
-
-
-
 
 
             animationList.add(R.raw.thirtytwo);
             animationList.add(R.raw.thirtythree);
             animationList.add(R.raw.thirtyfour);
             animationList.add(R.raw.thirtyfive);
-//            animationList.add(R.raw.thirtysix);
+//
             animationList.add(R.raw.thirtyseven);
             animationList.add(R.raw.thirtyeight);
-//            animationList.add(R.raw.forty);
+//
 //            animationList.add(R.raw.fourtyone);
 //            animationList.add(R.raw.fourtytwo);
             animationList.add(R.raw.fourtythree);
@@ -309,7 +309,6 @@ public class MyWatchFace extends CanvasWatchFaceService {
             animationList.add(R.raw.fourtyeight);
             animationList.add(R.raw.fourtynine);
             animationList.add(R.raw.fifty);
-
 
 
             animationList.add(R.raw.fiftyone);
@@ -388,8 +387,8 @@ public class MyWatchFace extends CanvasWatchFaceService {
                 if (animationCounter != 0) {
                     animationCounter = 0;
                 }
-                if(isAnimationActivate)
-                    isAnimationActivate=false;
+                if (isAnimationActivate)
+                    isAnimationActivate = false;
                 return;
             }
 //                    updateBrightness(255);
@@ -509,13 +508,205 @@ public class MyWatchFace extends CanvasWatchFaceService {
         private int animationNumber = 0;
 
         private void changeAnimation() {
-            if (isAnimationActivate||!isLoaded) {
+            if (isAnimationActivate || !isLoaded) {
                 return;
             }
             animationNumber++;
             if (animationNumber >= animationList.size()) {
                 animationNumber = 0;
             }
+            switch (animationNumber) {
+                case 0:
+                    pokemonName = "Pikachu";
+                    break;
+                case 1:
+                    pokemonName = "Marowak";
+                    break;
+                case 2:
+                    pokemonName = "Blastoise";
+                    break;
+                case 3:
+                    pokemonName = "Jigglypuff";
+                    break;
+                case 4:
+                    pokemonName = "Charizard";
+                    break;
+
+                case 5:
+                    pokemonName = "Mew";
+                    break;
+                case 6:
+                    pokemonName = "Jynx";
+                    break;
+                case 7:
+                    pokemonName = "Mr. Mime";
+                    break;
+                case 8:
+                    pokemonName = "Scyther";
+                    break;
+
+                case 9:
+                    pokemonName = "Snorlax";
+                    break;
+                case 10:
+                    pokemonName = "Alkazam";
+                    break;
+                case 11:
+                    pokemonName = "Gengar";
+                    break;
+                case 12:
+                    pokemonName = "Pikachu";
+                    break;
+                case 13:
+                    pokemonName = "Smoke";
+                    break;
+                case 14:
+                    pokemonName = "Haunter";
+                    break;
+                case 15:
+                    pokemonName = "Gengar";
+                    break;
+                case 16:
+                    pokemonName = "Pikachu";
+                    break;
+                case 17:
+                    pokemonName = "Poliwhirl";
+                    break;
+                case 18:
+                    pokemonName = "Aerodactyl";
+                    break;
+                case 19:
+                    pokemonName = "Togepi";
+                    break;
+                case 20:
+                    pokemonName = "Squirtle";
+                    break;
+                case 21:
+                    pokemonName = "Eevee";
+                    break;
+                case 22:
+                    pokemonName = "Bulbasaur";
+                    break;
+                case 23:
+                    pokemonName = "Starmie";
+                    break;
+                case 24:
+                    pokemonName = "Onix";
+                    break;
+                case 25:
+                    pokemonName = "Jigglypuff";
+                    break;
+                case 26:
+                    pokemonName = "Jigglypuff";
+                    break;
+                case 27:
+                    pokemonName = "Pikachu";
+                    break;
+                case 28:
+                    pokemonName = "Pichu";
+                    break;
+                case 29:
+                    pokemonName = "Ash";
+                    break;
+                case 30:
+                    pokemonName = "Psyduck";
+                    break;
+                case 31:
+                    pokemonName = "Slowbro";
+                    break;
+                case 32:
+                    pokemonName = "Growlithe";
+                    break;
+                case 33:
+                    pokemonName = "Dragonite";
+                    break;
+                case 34:
+                    pokemonName = "Lickitung ";
+                    break;
+                case 35:
+                    pokemonName = "Bulbasaur";
+                    break;
+                case 36:
+                    pokemonName = "Dragonair";
+                    break;
+                case 37:
+                    pokemonName = "Blastoise";
+                    break;
+                case 38:
+                    pokemonName = "Gengar";
+                    break;
+                case 39:
+                    pokemonName = "Gyarados";
+                    break;
+                case 40:
+                    pokemonName = "Haunter";
+                    break;
+                case 41:
+                    pokemonName = "Lapras";
+                    break;
+                case 42:
+                    pokemonName = "Charizard";
+                    break;
+                case 43:
+                    pokemonName = "Squirtle";
+                    break;
+                case 44:
+                    pokemonName = "Doduo";
+                    break;
+                case 45:
+                    pokemonName = "Alkazam";
+                    break;
+                case 46:
+                    pokemonName = "Psyduck";
+                    break;
+                case 47:
+                    pokemonName = "Wartortle";
+                    break;
+                case 48:
+                    pokemonName = "Ninetales";
+                    break;
+                case 49:
+                    pokemonName = "Gengar";
+                    break;
+                case 50:
+                    pokemonName = "Abra";
+                    break;
+                case 51:
+                    pokemonName = "Wartortle";
+                    break;
+                case 52:
+                    pokemonName = "Umbreon";
+                    break;
+                case 53:
+                    pokemonName = "Azumarill";
+                    break;
+                case 54:
+                    pokemonName = "Carvanha";
+                    break;
+                case 55:
+                    pokemonName = "Phantump";
+                    break;
+
+                case 56:
+                    pokemonName = "Uknown";
+                    break;
+                case 57:
+                    pokemonName = "Hitmontop";
+                    break;
+                case 58:
+                    pokemonName = "Uknown";
+                    break;
+
+                case 59:
+                    pokemonName = "Goodra";
+                    break;
+                case 60:
+                    pokemonName = "Froakie";
+                    break;
+
+
+            }
+
             loadAnimation(animationList.get(animationNumber));
         }
 
@@ -690,9 +881,9 @@ public class MyWatchFace extends CanvasWatchFaceService {
             int width = display.getWidth();
             int height = display.getHeight();
             blockStartY = 50f * mainScaleX;
-            blockStartX = (width / 2) - blockScaledBitmap.getWidth()/2;
+            blockStartX = (width / 2) - blockScaledBitmap.getWidth() / 2;
             Bitmap num1Bitmap = getTimeBitmap(0);
-            numberStartY = blockStartY +dpToPx(5);
+            numberStartY = blockStartY + dpToPx(5);
 //            numberStartY = blockStartY + blockScaledBitmap.getHeight() /2-num1Bitmap.getHeight()/2;
         }
 
@@ -848,8 +1039,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
                 if (touchTime < maxTouchTime) {
                     if (isChangingBackgoundByTouch) {
                         changeStage();
-                    }
-                    else   if(isChangingAnimationByTouch) {
+                    } else if (isChangingAnimationByTouch) {
 //                        enableAnimation();
                         changeAnimation();
                         Log.e("changeAnimation", "" + touchTime);
@@ -898,13 +1088,13 @@ public class MyWatchFace extends CanvasWatchFaceService {
         }
 
         boolean isHourChanged = false;
-        private int previousHour = -1, previousMinute = -1,previousSecond=-1;
-boolean isFlashing=true;
+        private int previousHour = -1, previousMinute = -1, previousSecond = -1;
+        boolean isFlashing = true;
 
         @Override
         public void onDraw(Canvas canvas, Rect bounds) {
             // Draw the background.
-            Paint paint= new Paint();
+            Paint paint = new Paint();
 
             WindowManager window = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
             Display display = window.getDefaultDisplay();
@@ -931,10 +1121,10 @@ boolean isFlashing=true;
             if (previousMinute == -1) {
                 previousMinute = tempMinute;
             }
-            String hourExtra=null;
+            String hourExtra = null;
             Date date = new Date();
             if (!is24HourType) {
-                hourExtra=(tempHour<12)?"AM":"PM";
+                hourExtra = (tempHour < 12) ? "AM" : "PM";
                 SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss a");
 
 
@@ -942,7 +1132,9 @@ boolean isFlashing=true;
 
                 try {
                     String newHourFormat = newTimeFormat.split(":")[0];
-                    tempHour = Integer.parseInt(newHourFormat);
+                    if (tempHour != 0)
+                        tempHour = Integer.parseInt(newHourFormat);
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -965,89 +1157,85 @@ boolean isFlashing=true;
                 changeAnimation();
             }
 
-            float energyBottomY=blockStartY+blockScaledBitmap.getHeight()-dpToPx(5);
-            float distanceY=dpToPx(5);
+            float energyBottomY = blockStartY + blockScaledBitmap.getHeight() - dpToPx(5);
+            float distanceY = dpToPx(5);
 
-            canvas.drawBitmap(isInAmbientMode() ? blockBitmap_abc_Scalled : blockScaledBitmap,blockStartX, blockStartY, null);
+            canvas.drawBitmap(isInAmbientMode() ? blockBitmap_abc_Scalled : blockScaledBitmap, blockStartX, blockStartY, null);
 
 
-            Paint transPaintWhite,transPaintBlack;
-            transPaintWhite=new Paint();
-            transPaintBlack=new Paint();
-            transPaintWhite.setColor(getColorWithAlpha(getResources().getColor(R.color.blockBackground),0.8f));
+            Paint transPaintWhite, transPaintBlack;
+            transPaintWhite = new Paint();
+            transPaintBlack = new Paint();
+            transPaintWhite.setColor(getColorWithAlpha(getResources().getColor(R.color.blockBackground), 0.8f));
             transPaintBlack.setColor(getResources().getColor(R.color.transparent_black_percent_80));
-            canvas.drawRect(blockStartX, blockStartY,blockStartX+blockScaledBitmap.getWidth(),blockStartY+blockScaledBitmap.getHeight(), (isInAmbientMode())?transPaintBlack:transPaintWhite);
+            canvas.drawRect(blockStartX, blockStartY, blockStartX + blockScaledBitmap.getWidth(), blockStartY + blockScaledBitmap.getHeight(), (isInAmbientMode()) ? transPaintBlack : transPaintWhite);
 
 
 //            canvas.drawBitmap(isInAmbientMode() ? blockBitmap_abc_Scalled : blockScaledBitmap, width/2+10, blockStartY, null);
 
-            if(!isInAmbientMode()) {// draw energy
-                Paint transPaint= new Paint();
+            if (!isInAmbientMode()) {// draw energy
+                Paint transPaint = new Paint();
                 transPaint.setColor(getResources().getColor(R.color.transparent_black_percent_75));
 //                canvas.drawRect(width/2-blockScaledBitmap.getWidth()-10, blockStartY,width/2-blockScaledBitmap.getWidth()-10+ blockScaledBitmap.getWidth(), blockStartY+blockScaledBitmap.getHeight(), transPaint);
 //                canvas.drawRect(width/2+10, blockStartY,width/2+10+ blockScaledBitmap.getWidth(), blockStartY+blockScaledBitmap.getHeight(), transPaint);
 
 
-                Paint grayPaint= new Paint();
+                Paint grayPaint = new Paint();
                 grayPaint.setColor(getResources().getColor(R.color.powergray));
-                Paint whitePaint= new Paint();
+                Paint whitePaint = new Paint();
                 whitePaint.setColor(getResources().getColor(R.color.white));
-                Paint greenPaint= new Paint();
+                Paint greenPaint = new Paint();
                 greenPaint.setColor(getResources().getColor(R.color.powerGreen));
-                float hourX=blockStartX + dpToPx(30);
+                float hourX = blockStartX + dpToPx(30);
 
-                float hourTotalEndWidth=hourX+ dpToPx(70);
-                float hourDistanse=hourTotalEndWidth-hourX;
+                float hourTotalEndWidth = hourX + dpToPx(70);
+                float hourDistanse = Math.abs(hourTotalEndWidth - hourX);
 
-                int usedTempHour=tempHour;
-                if(!is24HourType&&hourExtra.equals("PM")){
-                    usedTempHour+=12;
+                int usedTempHour = tempHour;
+                if (!is24HourType && hourExtra.equals("PM")) {
+                    usedTempHour += 12;
                 }
-                float distanseGreen=hourDistanse-hourDistanse*((((usedTempHour+1)*60+(tempMinute))/(24.0f*60+59)));
 
-                Log.e(Float.toString((usedTempHour)*60*60+(tempMinute)*60+mTime.second),"result "+23.0f*60*60);
+//                float distanseGreen=hourDistanse-hourDistanse*((((usedTempHour+1)*60+(tempMinute))/(24.0f*60+59)));
 
-
-
-
+//                Log.e(Float.toString((usedTempHour)*60*60+(tempMinute)*60+mTime.second),"result "+23.0f*60*60);
 
 
 //                RectF energyRect=new RectF();
-                RectF AllenergysItemRect=new RectF();
-                RectF whitePartenergysItemRect=new RectF();
+                RectF AllenergysItemRect = new RectF();
+                RectF whitePartenergysItemRect = new RectF();
 
-                AllenergysItemRect.set(hourX-dpToPx(5),energyBottomY-distanceY-dpToPx(3),
-                        hourTotalEndWidth+dpToPx(3),energyBottomY+dpToPx(3));
+                AllenergysItemRect.set(hourX - dpToPx(5), energyBottomY - distanceY - dpToPx(3),
+                        hourTotalEndWidth + dpToPx(3), energyBottomY + dpToPx(3));
 //                energyRect.set(hourX,energyBottomY-distanceY,hourTotalEndWidth,energyBottomY);
 
-                whitePartenergysItemRect.set(hourX+dpToPx(20),energyBottomY-distanceY-dpToPx(1),
-                        hourTotalEndWidth+dpToPx(1),energyBottomY+dpToPx(1));
-                canvas.drawRect(AllenergysItemRect,grayPaint);
-                Paint paint2=new Paint();
+                whitePartenergysItemRect.set(hourX + dpToPx(20), energyBottomY - distanceY - dpToPx(1),
+                        hourTotalEndWidth + dpToPx(1), energyBottomY + dpToPx(1));
+                canvas.drawRect(AllenergysItemRect, grayPaint);
+                Paint paint2 = new Paint();
                 paint2.setTextSize(dpToPx(10));
                 paint2.setTypeface(Typeface.create(Typeface.DEFAULT_BOLD, Typeface.BOLD));
 
                 paint2.setColor(getResources().getColor(R.color.textGold));
-                canvas.drawText("DT",(hourX-dpToPx(2)),energyBottomY+dpToPx(2),paint2);
-                canvas.drawRect(whitePartenergysItemRect,whitePaint);
+                canvas.drawText("DT", (hourX - dpToPx(2)), energyBottomY + dpToPx(2), paint2);
+                canvas.drawRect(whitePartenergysItemRect, whitePaint);
 
 
-                RectF grayPartenergysItemRect=new RectF();
-                Paint paint3=new Paint();
+                RectF grayPartenergysItemRect = new RectF();
+                Paint paint3 = new Paint();
                 paint3.setColor(getResources().getColor(R.color.black_pressed));
-                grayPartenergysItemRect.set(hourX+dpToPx(22),energyBottomY-distanceY,
-                        hourTotalEndWidth,energyBottomY);
+                grayPartenergysItemRect.set(hourX + dpToPx(22), energyBottomY - distanceY,
+                        hourTotalEndWidth, energyBottomY);
+                float distanseGreen = Math.abs(grayPartenergysItemRect.right - grayPartenergysItemRect.right * ((((usedTempHour) * 60 + (tempMinute) + mTime.second) / (24.0f * 60 + 59))));
+
 //                Paint grayPaint=new Paint();
 //                paint2.setColor(getResources().getColor(R.color.dark_grey));
                 canvas.drawRect(grayPartenergysItemRect, paint3);
 
 
+                Log.e("distanseGreen" + usedTempHour, hourExtra + " " + distanseGreen);
 
-
-
-
-                canvas.drawRect(hourX+dpToPx(22),energyBottomY-distanceY,hourX+dpToPx(22)+distanseGreen, energyBottomY, greenPaint);
-
+                canvas.drawRect(grayPartenergysItemRect.left, energyBottomY - distanceY, distanseGreen, energyBottomY, greenPaint);
 
 
 //
@@ -1079,7 +1267,7 @@ boolean isFlashing=true;
 
             Bitmap num1Bitmap = getTimeBitmap(timeTextOneByOne);
 
-            numberHourX1 = blockStartX +10;
+            numberHourX1 = blockStartX + 10;
 
 
             canvas.drawBitmap(num1Bitmap, numberHourX1, numberStartY, null);
@@ -1092,14 +1280,11 @@ boolean isFlashing=true;
             }
 
 
-
             numberHourX2 = numberHourX1 + num1Bitmap.getWidth();
             Bitmap num2Bitmap = getTimeBitmap(timeTextOneByOne);
 
 
             canvas.drawBitmap(num2Bitmap, numberHourX2, numberStartY, null);
-
-
 
 
             if (tempMinute < 10) {
@@ -1109,28 +1294,28 @@ boolean isFlashing=true;
             }
             Bitmap num3Bitmap = getTimeBitmap(timeTextOneByOne);
 
-            numberMinuteX1 =  numberHourX2 + num1Bitmap.getWidth()+20;
+            numberMinuteX1 = numberHourX2 + num1Bitmap.getWidth() + 20;
             canvas.drawBitmap(num3Bitmap, numberMinuteX1, numberStartY, null);
 
 
-            if(isFlashing) {
+            if (isFlashing) {
                 Paint sp = new Paint();
                 sp.setColor(getResources().getColor(R.color.transparent_black_percent_70));
                 sp.setTextSize(60);
                 canvas.drawText(":", numberHourX2 + num1Bitmap.getWidth(), numberStartY + 6 * num2Bitmap.getHeight() / 7.0f, sp);
-                if(previousSecond!=mTime.second&&previousSecond!=-1){
+                if (previousSecond != mTime.second && previousSecond != -1) {
 
-                    isFlashing=false;
+                    isFlashing = false;
                 }
-            }else{
-                if(previousSecond!=mTime.second&&previousSecond!=-1) {
+            } else {
+                if (previousSecond != mTime.second && previousSecond != -1) {
                     isFlashing = true;
                 }
             }
 
 
-            previousSecond=mTime.second;
-                if (tempMinute < 10) {
+            previousSecond = mTime.second;
+            if (tempMinute < 10) {
                 timeTextOneByOne = tempMinute;
             } else {
                 timeTextOneByOne = tempMinute - ((tempMinute / 10) * 10);
@@ -1140,39 +1325,50 @@ boolean isFlashing=true;
             numberMinuteX2 = numberMinuteX1 + num3Bitmap.getWidth();
             canvas.drawBitmap(num4Bitmap, numberMinuteX2, numberStartY, null);
 
-            if(!isInAmbientMode()&& isDateVisible) {
+            Paint paint2 = new Paint();
+            paint2.setColor(getResources().getColor(R.color.black));
+            paint2.setTextSize((int) ((blockScaledBitmap.getHeight() - (num4Bitmap.getHeight())) / 2.5));
+            paint2.setTypeface(Typeface.create(Typeface.DEFAULT_BOLD, Typeface.BOLD_ITALIC));
+            if (!isInAmbientMode() && isDateVisible) {
                 Calendar c = Calendar.getInstance();
-                Paint paint2= new Paint();
-                paint2.setColor(getResources().getColor(R.color.black));
 
-                String formattedDate =  c.get(Calendar.DAY_OF_MONTH)+"/"+ c.get(Calendar.MONTH)+"/"+ Integer.toString(c.get(Calendar.YEAR)).substring(Integer.toString(c.get(Calendar.YEAR)).length()-2);
+                String formattedDate = c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.MONTH) + "/" + Integer.toString(c.get(Calendar.YEAR)).substring(Integer.toString(c.get(Calendar.YEAR)).length() - 2);
 
-                paint2.setTextSize( (int)((blockScaledBitmap.getHeight()-(num4Bitmap.getHeight()))/2.5));
-                paint2.setTypeface(Typeface.create(Typeface.DEFAULT_BOLD, Typeface.BOLD_ITALIC));
 
-                canvas.drawText(formattedDate, (int)(numberHourX1+num1Bitmap.getHeight()/3),
-                         (int)((energyBottomY-distanceY-dpToPx(5))), paint2);
+                if (!is24HourType) {
+                    canvas.drawText(formattedDate, (int) (numberHourX1 + num1Bitmap.getHeight() / 3),
+                            (int) ((energyBottomY - distanceY - dpToPx(5))), paint2);
+
+                } else {
+                    canvas.drawText(pokemonName, (int) (numberHourX1 + num1Bitmap.getHeight() / 3),
+                            (int) ((energyBottomY - distanceY - dpToPx(5))), paint2);
+                    canvas.drawText(formattedDate, (int) (blockStartX + blockScaledBitmap.getWidth() - 1.5f * num1Bitmap.getWidth()),
+                            num1Bitmap.getHeight() + numberStartY + (int) ((blockScaledBitmap.getHeight() - (num4Bitmap.getHeight())) / 2.5), paint2);
+                }
+            } else if (!isInAmbientMode() && !isDateVisible) {
+                canvas.drawText(pokemonName, (int) (numberHourX1 + num1Bitmap.getHeight() / 3),
+                        (int) ((energyBottomY - distanceY - dpToPx(5))), paint2);
             }
-
-            if(!is24HourType){
+            if (!is24HourType) {
                 paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
-                paint.setTextSize( (int)((blockScaledBitmap.getHeight()-(num4Bitmap.getHeight()))/2.5));
-                canvas.drawText(hourExtra, (int)(blockStartX+blockScaledBitmap.getWidth()-1.5f*num1Bitmap.getWidth()),num1Bitmap.getHeight()+numberStartY+(int)((blockScaledBitmap.getHeight()-(num4Bitmap.getHeight()))/2.5), paint);
+                paint.setTextSize((int) ((blockScaledBitmap.getHeight() - (num4Bitmap.getHeight())) / 2.5));
+                canvas.drawText(hourExtra, (int) (blockStartX + blockScaledBitmap.getWidth() - 1.5f * num1Bitmap.getWidth()), num1Bitmap.getHeight() + numberStartY + (int) ((blockScaledBitmap.getHeight() - (num4Bitmap.getHeight())) / 2.5), paint);
 
             }
 
-            if(isBatteryVisible){
-                Paint bp= new Paint();
+
+            if (isBatteryVisible) {
+                Paint bp = new Paint();
                 bp.setTextSize(17);
                 bp.setTypeface(Typeface.create(Typeface.DEFAULT_BOLD, Typeface.BOLD_ITALIC));
-                canvas.drawBitmap((isInAmbientMode())?batteryScaledBitmap_abc:batteryScaledBitmap,20,blockStartY+blockScaledBitmap.getHeight(),null);
+                canvas.drawBitmap((isInAmbientMode()) ? batteryScaledBitmap_abc : batteryScaledBitmap, 20, blockStartY + blockScaledBitmap.getHeight(), null);
                 IntentFilter iFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
                 Intent batteryStatus = getApplicationContext().registerReceiver(null, iFilter);
-                if(isInAmbientMode()){
+                if (isInAmbientMode()) {
                     bp.setColor(getResources().getColor(R.color.MilkWhite));
                 }
 
-                canvas.drawText(Integer.toString( batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1))+"%",20+batteryScaledBitmap.getWidth()/4,(blockStartY+blockScaledBitmap.getHeight()+2*batteryScaledBitmap.getHeight()/3.0f),bp);
+                canvas.drawText(Integer.toString(batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)) + "%", 20 + batteryScaledBitmap.getWidth() / 4, (blockStartY + blockScaledBitmap.getHeight() + 2 * batteryScaledBitmap.getHeight() / 3.0f), bp);
             }
 
 //            canvas.drawBitmap(isInAmbientMode() ? secondsBlockBitmapScalled_abc : secondsBlockBitmapScalled, secX, secY, null);
@@ -1180,53 +1376,49 @@ boolean isFlashing=true;
                 Paint secontPaint = new Paint();
                 secontPaint.setFakeBoldText(true);
                 secontPaint.setColor(getResources().getColor(R.color.mnalClr));//DarkSlateBlue,DarkGreen,black
-                float secX =  blockStartX+blockScaledBitmap.getWidth()-dpToPx(5),//width/2-30,//
-                        secY = blockScaledBitmap.getHeight()+blockStartY+55;
-                Paint backgroundSecWhitePaint=new Paint();
+                float secX = blockStartX + blockScaledBitmap.getWidth() - dpToPx(5),//width/2-30,//
+                        secY = blockScaledBitmap.getHeight() + blockStartY + 55;
+                Paint backgroundSecWhitePaint = new Paint();
                 backgroundSecWhitePaint.setColor(getResources().getColor(R.color.transparent_white_percent_80));
-                Paint backgroundSecRedPaint=new Paint();
-                backgroundSecRedPaint.setColor(getColorWithAlpha(getResources().getColor(R.color.ballRed),0.8f));
+                Paint backgroundSecRedPaint = new Paint();
+                backgroundSecRedPaint.setColor(getColorWithAlpha(getResources().getColor(R.color.ballRed), 0.8f));
 
 
-                Paint backgroundSecBlackPaint=new Paint();
+                Paint backgroundSecBlackPaint = new Paint();
                 backgroundSecBlackPaint.setColor(getResources().getColor(R.color.transparent_black_percent_50));
 //                backgroundSecRedPaint.setColor((getResources().getColor(R.color.dark_red)));
 
 //backgroundSecWhitePaint.setStyle(Paint.Style.FILL);
                 secontPaint.setTextSize(50);
 
-                RectF rectF=new RectF(secX-10 ,secY-55,secX+70,secY+15);
-                canvas.drawArc(rectF,180 , 180, true, backgroundSecRedPaint);
+                RectF rectF = new RectF(secX - 10, secY - 55, secX + 70, secY + 15);
+                canvas.drawArc(rectF, 180, 180, true, backgroundSecRedPaint);
 //                canvas.drawOval(new RectF(secX-10 ,10+secY,secX+70,secY-50), backgroundSecWhitePaint);
                 canvas.drawArc(rectF, 0, 180, false, backgroundSecWhitePaint);
-                canvas.drawRect(rectF.left, rectF.top+rectF.height()/2-5, rectF.right, rectF.top+rectF.height()/2+5, backgroundSecBlackPaint);
+                canvas.drawRect(rectF.left, rectF.top + rectF.height() / 2 - 5, rectF.right, rectF.top + rectF.height() / 2 + 5, backgroundSecBlackPaint);
 
-                Paint backgroundSecDarkBlackPaint=new Paint();
+                Paint backgroundSecDarkBlackPaint = new Paint();
                 backgroundSecDarkBlackPaint.setColor(getResources().getColor(R.color.transparent_white_percent_70));
 //                backgroundSecRedPaint.setColor((getResources().getColor(R.color.dark_red)));
 
 //backgroundSecWhitePaint.setStyle(Paint.Style.FILL);
 
 
-                Paint backgroundSecLightWhitePaint=new Paint();
+                Paint backgroundSecLightWhitePaint = new Paint();
                 backgroundSecLightWhitePaint.setColor(getResources().getColor(R.color.transparent_white_percent_40));
 
-                canvas.drawOval(rectF.left+rectF.width()/2-15,rectF.top+rectF.height()/2-15,rectF.left+rectF.width()/2+15,rectF.top+rectF.height()/2+15,backgroundSecLightWhitePaint);
+                canvas.drawOval(rectF.left + rectF.width() / 2 - 15, rectF.top + rectF.height() / 2 - 15, rectF.left + rectF.width() / 2 + 15, rectF.top + rectF.height() / 2 + 15, backgroundSecLightWhitePaint);
 
 
-
-                canvas.drawOval(rectF.left+rectF.width()/2-3,rectF.top+rectF.height()/2-3,rectF.left+rectF.width()/2+3,rectF.top+rectF.height()/2+3,backgroundSecDarkBlackPaint);
+                canvas.drawOval(rectF.left + rectF.width() / 2 - 3, rectF.top + rectF.height() / 2 - 3, rectF.left + rectF.width() / 2 + 3, rectF.top + rectF.height() / 2 + 3, backgroundSecDarkBlackPaint);
                 secontPaint.setTypeface(Typeface.create(Typeface.DEFAULT_BOLD, Typeface.BOLD));
-
-
-
 
 
 //                Paint backgroundSecWhitePaint=new Paint();
 //                backgroundSecWhitePaint.setColor(getResources().getColor(R.color.transparent_black_percent_50));
 //                canvas.drawRect( secX-5 ,5+secY,secX+45,secY-28, backgroundSecWhitePaint);
 
-                canvas.drawText(mTime.second >= 10 ? Integer.toString(mTime.second) : "0" + Integer.toString(mTime.second), secX ,secY, secontPaint);
+                canvas.drawText(mTime.second >= 10 ? Integer.toString(mTime.second) : "0" + Integer.toString(mTime.second), secX, secY, secontPaint);
 
             }
 //            canvas.drawRect(cardBounds, mainPaint);
@@ -1239,7 +1431,8 @@ boolean isFlashing=true;
             previousHour = tempHour;
             previousMinute = tempMinute;
         }
-        public  int getColorWithAlpha(int color, float ratio) {
+
+        public int getColorWithAlpha(int color, float ratio) {
             int newColor = 0;
             int alpha = Math.round(Color.alpha(color) * ratio);
             int r = Color.red(color);
@@ -1248,11 +1441,13 @@ boolean isFlashing=true;
             newColor = Color.argb(alpha, r, g, b);
             return newColor;
         }
+
         public int dpToPx(int dp) {
-            DisplayMetrics displayMetrics =getResources().getDisplayMetrics();
+            DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
             int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
             return px;
         }
+
         public Bitmap getTimeBitmap(int number) {
             switch (number) {
                 case 0:
