@@ -1227,7 +1227,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
                 paint2.setTypeface(Typeface.create(Typeface.DEFAULT_BOLD, Typeface.BOLD));
 
                 paint2.setColor(getResources().getColor(R.color.textGold));
-                canvas.drawText("DT", (hourX - dpToPx(2)), energyBottomY + dpToPx(2), paint2);
+                canvas.drawText("DT", (hourX - dpToPx(2)), energyBottomY + dpToPx(1), paint2);
                 canvas.drawRect(whitePartenergysItemRect, whitePaint);
 
 
