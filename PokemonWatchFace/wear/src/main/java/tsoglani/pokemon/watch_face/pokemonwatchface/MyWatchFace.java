@@ -1146,6 +1146,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
             } else {
                 timeTextOneByOne = tempHour / 10;
             }
+            Bitmap num1Bitmap = getTimeBitmap(timeTextOneByOne);
 
             if (previousHour == -1) {
                 previousHour = tempHour;
@@ -1166,8 +1167,8 @@ public class MyWatchFace extends CanvasWatchFaceService {
             Paint transPaintWhite, transPaintBlack;
             transPaintWhite = new Paint();
             transPaintBlack = new Paint();
-            transPaintWhite.setColor(getColorWithAlpha(getResources().getColor(R.color.blockBackground), 0.8f));
-            transPaintBlack.setColor(getResources().getColor(R.color.transparent_black_percent_80));
+            transPaintWhite.setColor(getColorWithAlpha(getResources().getColor(R.color.blockBackground), 0.6f));
+            transPaintBlack.setColor(getResources().getColor(R.color.transparent_black_percent_60));
             canvas.drawRect(blockStartX, blockStartY, blockStartX + blockScaledBitmap.getWidth(), blockStartY + blockScaledBitmap.getHeight(), (isInAmbientMode()) ? transPaintBlack : transPaintWhite);
 
 
@@ -1199,6 +1200,15 @@ public class MyWatchFace extends CanvasWatchFaceService {
 //                float distanseGreen=hourDistanse-hourDistanse*((((usedTempHour+1)*60+(tempMinute))/(24.0f*60+59)));
 
 //                Log.e(Float.toString((usedTempHour)*60*60+(tempMinute)*60+mTime.second),"result "+23.0f*60*60);
+
+                if(!isInAmbientMode()){
+                    Paint transPaintWhite2;
+                    transPaintWhite2 = new Paint();
+                    transPaintWhite2.setColor(getColorWithAlpha(getResources().getColor(R.color.blockBackground), 0.8f));
+                    canvas.drawRect(blockStartX,  numberStartY + (int) (num1Bitmap.getHeight()  )
+                            , blockStartX + blockScaledBitmap.getWidth(), blockStartY + blockScaledBitmap.getHeight(),  transPaintWhite2);
+
+                }
 
 
 //                RectF energyRect=new RectF();
@@ -1265,7 +1275,6 @@ public class MyWatchFace extends CanvasWatchFaceService {
 //                }
             }
 
-            Bitmap num1Bitmap = getTimeBitmap(timeTextOneByOne);
 
             numberHourX1 = blockStartX + 10;
 
@@ -1329,6 +1338,10 @@ public class MyWatchFace extends CanvasWatchFaceService {
             paint2.setColor(getResources().getColor(R.color.black));
             paint2.setTextSize((int) ((blockScaledBitmap.getHeight() - (num4Bitmap.getHeight())) / 2.5));
             paint2.setTypeface(Typeface.create(Typeface.DEFAULT_BOLD, Typeface.BOLD_ITALIC));
+
+
+
+
             if (!isInAmbientMode() && isDateVisible) {
                 Calendar c = Calendar.getInstance();
 
@@ -1342,7 +1355,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
                 } else {
                     canvas.drawText(pokemonName, (int) (numberHourX1 + num1Bitmap.getHeight() / 3),
                             (int) ((energyBottomY - distanceY - dpToPx(5))), paint2);
-                    canvas.drawText(formattedDate, (int) (blockStartX + blockScaledBitmap.getWidth() - 1.5f * num1Bitmap.getWidth()),
+                    canvas.drawText(formattedDate, (int) (blockStartX + blockScaledBitmap.getWidth() - 2f * num1Bitmap.getWidth()),
                             num1Bitmap.getHeight() + numberStartY + (int) ((blockScaledBitmap.getHeight() - (num4Bitmap.getHeight())) / 2.5), paint2);
                 }
             } else if (!isInAmbientMode() && !isDateVisible) {
