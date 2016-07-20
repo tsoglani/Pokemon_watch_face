@@ -104,6 +104,16 @@
     <color name="SaddleBrown">#8B4513</color>
     <color name="DarkMagenta">#8B008B</color>
     <color name="DarkRed">#8B0000</color>
+    <color name="mnalClr">#40c8f8</color>
+    <color name="textGold">#f8d050</color>
+
+    <color name="blockBackground">#f8f8d8</color>
+    <color name="powerGreen">#70f8a8</color>
+    <color name="powergray">#506858</color>
+
+    <color name="ballRed">#dd2009</color>
+
+
     <color name="BlueViolet">#8A2BE2</color>
     <color name="LightSkyBlue">#87CEFA</color>
     <color name="SkyBlue">#87CEEB</color>

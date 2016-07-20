@@ -240,8 +240,12 @@ public class MyWatchFace extends CanvasWatchFaceService {
         }
 
         private void wakeUnlock() {
-            wl.release();
-
+            try {
+                wl.release();
+            }catch (Exception e){
+                e.printStackTrace();
+                changeAnimation();
+            }
 
         }
 
@@ -250,39 +254,43 @@ public class MyWatchFace extends CanvasWatchFaceService {
             animationList.add(R.raw.one);
             animationList.add(R.raw.two);
             animationList.add(R.raw.three);
-//            animationList.add(R.raw.four);
-            animationList.add(R.raw.five);
+
+
             animationList.add(R.raw.six);
             animationList.add(R.raw.seven);
-            animationList.add(R.raw.eight);
+//            animationList.add(R.raw.eight);
             animationList.add(R.raw.nine);
             animationList.add(R.raw.ten);
             animationList.add(R.raw.eleven);
             animationList.add(R.raw.twelve);
-            animationList.add(R.raw.thirteen);
+
             animationList.add(R.raw.fourteen);
-            animationList.add(R.raw.fifteen);
+
 
             animationList.add(R.raw.sixteen);
-//            animationList.add(R.raw.seventeen);
-//            animationList.add(R.raw.eighteen);
-            animationList.add(R.raw.nineteen);
+            animationList.add(R.raw.fifteen);
+            animationList.add(R.raw.seventeen);
+            animationList.add(R.raw.four);
+            animationList.add(R.raw.eighteen);
+
+
             animationList.add(R.raw.twenty);
             animationList.add(R.raw.twentyone);
             animationList.add(R.raw.twentytwo);
+            animationList.add(R.raw.nineteen);
+
             animationList.add(R.raw.twentythree);
             animationList.add(R.raw.twentyfour);
-            animationList.add(R.raw.twentyfive);
+
             animationList.add(R.raw.twentysix);
+            animationList.add(R.raw.twentyfive);
             animationList.add(R.raw.twentyseven);
-            animationList.add(R.raw.twentyeight);
-            animationList.add(R.raw.twentynine);
 //            animationList.add(R.raw.thirty);
 
 
 
 
-            animationList.add(R.raw.thirtyone);
+
             animationList.add(R.raw.thirtytwo);
             animationList.add(R.raw.thirtythree);
             animationList.add(R.raw.thirtyfour);
@@ -290,12 +298,11 @@ public class MyWatchFace extends CanvasWatchFaceService {
 //            animationList.add(R.raw.thirtysix);
             animationList.add(R.raw.thirtyseven);
             animationList.add(R.raw.thirtyeight);
-            animationList.add(R.raw.thirtynine);
 //            animationList.add(R.raw.forty);
-            animationList.add(R.raw.fourtyone);
+//            animationList.add(R.raw.fourtyone);
 //            animationList.add(R.raw.fourtytwo);
             animationList.add(R.raw.fourtythree);
-            animationList.add(R.raw.fourtyfour);
+
             animationList.add(R.raw.fourtyfive);
             animationList.add(R.raw.fourtysix);
             animationList.add(R.raw.fourtyseven);
@@ -309,9 +316,9 @@ public class MyWatchFace extends CanvasWatchFaceService {
             animationList.add(R.raw.fiftytwo);
             animationList.add(R.raw.fiftythree);
             animationList.add(R.raw.fiftyfour);
-            animationList.add(R.raw.fiftyfive);
+
             animationList.add(R.raw.fiftysix);
-            animationList.add(R.raw.fiftyseven);
+
             animationList.add(R.raw.fiftyeight);
 
 
@@ -320,6 +327,16 @@ public class MyWatchFace extends CanvasWatchFaceService {
             animationList.add(R.raw.sixtyone);
             animationList.add(R.raw.sixtytwo);
             animationList.add(R.raw.sixtythree);
+
+            animationList.add(R.raw.five);
+            animationList.add(R.raw.fourtyfour);
+            animationList.add(R.raw.twentyeight);
+            animationList.add(R.raw.twentynine);
+            animationList.add(R.raw.thirtyone);
+            animationList.add(R.raw.fiftyfive);
+            animationList.add(R.raw.fiftyseven);
+            animationList.add(R.raw.thirtynine);
+            animationList.add(R.raw.thirteen);
 
         }
 
@@ -675,8 +692,8 @@ public class MyWatchFace extends CanvasWatchFaceService {
             blockStartY = 50f * mainScaleX;
             blockStartX = (width / 2) - blockScaledBitmap.getWidth()/2;
             Bitmap num1Bitmap = getTimeBitmap(0);
-
-            numberStartY = blockStartY + blockScaledBitmap.getHeight() /2-num1Bitmap.getHeight()/2;
+            numberStartY = blockStartY +dpToPx(5);
+//            numberStartY = blockStartY + blockScaledBitmap.getHeight() /2-num1Bitmap.getHeight()/2;
         }
 
 //        @Override
@@ -948,6 +965,8 @@ boolean isFlashing=true;
                 changeAnimation();
             }
 
+            float energyBottomY=blockStartY+blockScaledBitmap.getHeight()-dpToPx(5);
+            float distanceY=dpToPx(5);
 
             canvas.drawBitmap(isInAmbientMode() ? blockBitmap_abc_Scalled : blockScaledBitmap,blockStartX, blockStartY, null);
 
@@ -955,8 +974,8 @@ boolean isFlashing=true;
             Paint transPaintWhite,transPaintBlack;
             transPaintWhite=new Paint();
             transPaintBlack=new Paint();
-            transPaintWhite.setColor(getColorWithAlpha(getResources().getColor(R.color.TanBrown),0.6f));
-            transPaintBlack.setColor(getResources().getColor(R.color.transparent_black_percent_55));
+            transPaintWhite.setColor(getColorWithAlpha(getResources().getColor(R.color.blockBackground),0.8f));
+            transPaintBlack.setColor(getResources().getColor(R.color.transparent_black_percent_80));
             canvas.drawRect(blockStartX, blockStartY,blockStartX+blockScaledBitmap.getWidth(),blockStartY+blockScaledBitmap.getHeight(), (isInAmbientMode())?transPaintBlack:transPaintWhite);
 
 
@@ -969,29 +988,72 @@ boolean isFlashing=true;
 //                canvas.drawRect(width/2+10, blockStartY,width/2+10+ blockScaledBitmap.getWidth(), blockStartY+blockScaledBitmap.getHeight(), transPaint);
 
 
-                Paint redPaint= new Paint();
-                redPaint.setColor(getResources().getColor(R.color.dark_grey));
+                Paint grayPaint= new Paint();
+                grayPaint.setColor(getResources().getColor(R.color.powergray));
+                Paint whitePaint= new Paint();
+                whitePaint.setColor(getResources().getColor(R.color.white));
                 Paint greenPaint= new Paint();
-                greenPaint.setColor(getResources().getColor(R.color.LightGreen));
-                float hourX=blockStartX + 10;
+                greenPaint.setColor(getResources().getColor(R.color.powerGreen));
+                float hourX=blockStartX + dpToPx(30);
 
-                float hourTotalEndWidth=blockStartX + blockScaledBitmap.getWidth() - 10;
+                float hourTotalEndWidth=hourX+ dpToPx(70);
                 float hourDistanse=hourTotalEndWidth-hourX;
 
                 int usedTempHour=tempHour;
                 if(!is24HourType&&hourExtra.equals("PM")){
                     usedTempHour+=12;
                 }
-                float distanseGreen=hourDistanse*(1-((usedTempHour+1)*(tempMinute+1)/(24.0f*60)));
+                float distanseGreen=hourDistanse-hourDistanse*((((usedTempHour+1)*60+(tempMinute))/(24.0f*60+59)));
 
-                float energyBottomY=blockStartY+blockScaledBitmap.getHeight()-dpToPx(5);
-
-
-                float distanceY=dpToPx(5);
+                Log.e(Float.toString((usedTempHour)*60*60+(tempMinute)*60+mTime.second),"result "+23.0f*60*60);
 
 
-                canvas.drawRect(hourX,energyBottomY-distanceY,hourX+distanseGreen, energyBottomY, greenPaint);
-                canvas.drawRect(hourX+distanseGreen,  energyBottomY-distanceY, hourTotalEndWidth,energyBottomY, redPaint);
+
+
+
+
+//                RectF energyRect=new RectF();
+                RectF AllenergysItemRect=new RectF();
+                RectF whitePartenergysItemRect=new RectF();
+
+                AllenergysItemRect.set(hourX-dpToPx(5),energyBottomY-distanceY-dpToPx(3),
+                        hourTotalEndWidth+dpToPx(3),energyBottomY+dpToPx(3));
+//                energyRect.set(hourX,energyBottomY-distanceY,hourTotalEndWidth,energyBottomY);
+
+                whitePartenergysItemRect.set(hourX+dpToPx(20),energyBottomY-distanceY-dpToPx(1),
+                        hourTotalEndWidth+dpToPx(1),energyBottomY+dpToPx(1));
+                canvas.drawRect(AllenergysItemRect,grayPaint);
+                Paint paint2=new Paint();
+                paint2.setTextSize(dpToPx(10));
+                paint2.setTypeface(Typeface.create(Typeface.DEFAULT_BOLD, Typeface.BOLD));
+
+                paint2.setColor(getResources().getColor(R.color.textGold));
+                canvas.drawText("DT",(hourX-dpToPx(2)),energyBottomY+dpToPx(2),paint2);
+                canvas.drawRect(whitePartenergysItemRect,whitePaint);
+
+
+                RectF grayPartenergysItemRect=new RectF();
+                Paint paint3=new Paint();
+                paint3.setColor(getResources().getColor(R.color.black_pressed));
+                grayPartenergysItemRect.set(hourX+dpToPx(22),energyBottomY-distanceY,
+                        hourTotalEndWidth,energyBottomY);
+//                Paint grayPaint=new Paint();
+//                paint2.setColor(getResources().getColor(R.color.dark_grey));
+                canvas.drawRect(grayPartenergysItemRect, paint3);
+
+
+
+
+
+
+                canvas.drawRect(hourX+dpToPx(22),energyBottomY-distanceY,hourX+dpToPx(22)+distanseGreen, energyBottomY, greenPaint);
+
+
+
+//
+//
+//
+// canvas.drawRect(hourX+distanseGreen,  energyBottomY-distanceY, hourTotalEndWidth,energyBottomY, redPaint);
 //
 //
 //                float minX=width/2+10;
@@ -1088,13 +1150,14 @@ boolean isFlashing=true;
                 paint2.setTextSize( (int)((blockScaledBitmap.getHeight()-(num4Bitmap.getHeight()))/2.5));
                 paint2.setTypeface(Typeface.create(Typeface.DEFAULT_BOLD, Typeface.BOLD_ITALIC));
 
-                canvas.drawText(formattedDate, (int)(numberHourX1+num1Bitmap.getHeight()/3),blockStartY+ (int)((blockScaledBitmap.getHeight()-(num4Bitmap.getHeight()))/2.5), paint2);
+                canvas.drawText(formattedDate, (int)(numberHourX1+num1Bitmap.getHeight()/3),
+                         (int)((energyBottomY-distanceY-dpToPx(5))), paint2);
             }
 
             if(!is24HourType){
                 paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
                 paint.setTextSize( (int)((blockScaledBitmap.getHeight()-(num4Bitmap.getHeight()))/2.5));
-                canvas.drawText(hourExtra, (int)(blockStartX+blockScaledBitmap.getWidth()-(int)((blockScaledBitmap.getHeight()-(num4Bitmap.getHeight())))),num1Bitmap.getHeight()+numberStartY+(int)((blockScaledBitmap.getHeight()-(num4Bitmap.getHeight()))/2.5), paint);
+                canvas.drawText(hourExtra, (int)(blockStartX+blockScaledBitmap.getWidth()-1.5f*num1Bitmap.getWidth()),num1Bitmap.getHeight()+numberStartY+(int)((blockScaledBitmap.getHeight()-(num4Bitmap.getHeight()))/2.5), paint);
 
             }
 
@@ -1116,13 +1179,13 @@ boolean isFlashing=true;
             if (!isInAmbientMode()) {
                 Paint secontPaint = new Paint();
                 secontPaint.setFakeBoldText(true);
-                secontPaint.setColor(getResources().getColor(R.color.Goldenrod));//DarkSlateBlue,DarkGreen,black
-                float secX =  width/2-30,//blockStartX+blockScaledBitmap.getWidth()-dpToPx(5),//
+                secontPaint.setColor(getResources().getColor(R.color.mnalClr));//DarkSlateBlue,DarkGreen,black
+                float secX =  blockStartX+blockScaledBitmap.getWidth()-dpToPx(5),//width/2-30,//
                         secY = blockScaledBitmap.getHeight()+blockStartY+55;
                 Paint backgroundSecWhitePaint=new Paint();
                 backgroundSecWhitePaint.setColor(getResources().getColor(R.color.transparent_white_percent_80));
                 Paint backgroundSecRedPaint=new Paint();
-                backgroundSecRedPaint.setColor(getColorWithAlpha(getResources().getColor(R.color.dark_red),0.8f));
+                backgroundSecRedPaint.setColor(getColorWithAlpha(getResources().getColor(R.color.ballRed),0.8f));
 
 
                 Paint backgroundSecBlackPaint=new Paint();
@@ -1132,27 +1195,27 @@ boolean isFlashing=true;
 //backgroundSecWhitePaint.setStyle(Paint.Style.FILL);
                 secontPaint.setTextSize(50);
 
-                RectF rectF=new RectF(secX-5 ,secY-50,secX+65,secY+10);
+                RectF rectF=new RectF(secX-10 ,secY-55,secX+70,secY+15);
                 canvas.drawArc(rectF,180 , 180, true, backgroundSecRedPaint);
 //                canvas.drawOval(new RectF(secX-10 ,10+secY,secX+70,secY-50), backgroundSecWhitePaint);
                 canvas.drawArc(rectF, 0, 180, false, backgroundSecWhitePaint);
                 canvas.drawRect(rectF.left, rectF.top+rectF.height()/2-5, rectF.right, rectF.top+rectF.height()/2+5, backgroundSecBlackPaint);
 
                 Paint backgroundSecDarkBlackPaint=new Paint();
-                backgroundSecDarkBlackPaint.setColor(getResources().getColor(R.color.transparent_black_percent_30));
+                backgroundSecDarkBlackPaint.setColor(getResources().getColor(R.color.transparent_white_percent_70));
 //                backgroundSecRedPaint.setColor((getResources().getColor(R.color.dark_red)));
 
 //backgroundSecWhitePaint.setStyle(Paint.Style.FILL);
 
 
                 Paint backgroundSecLightWhitePaint=new Paint();
-                backgroundSecLightWhitePaint.setColor(getResources().getColor(R.color.transparent_white_percent_30));
+                backgroundSecLightWhitePaint.setColor(getResources().getColor(R.color.transparent_white_percent_40));
 
                 canvas.drawOval(rectF.left+rectF.width()/2-15,rectF.top+rectF.height()/2-15,rectF.left+rectF.width()/2+15,rectF.top+rectF.height()/2+15,backgroundSecLightWhitePaint);
 
 
 
-                canvas.drawOval(rectF.left+rectF.width()/2-5,rectF.top+rectF.height()/2-5,rectF.left+rectF.width()/2+5,rectF.top+rectF.height()/2+5,backgroundSecDarkBlackPaint);
+                canvas.drawOval(rectF.left+rectF.width()/2-3,rectF.top+rectF.height()/2-3,rectF.left+rectF.width()/2+3,rectF.top+rectF.height()/2+3,backgroundSecDarkBlackPaint);
                 secontPaint.setTypeface(Typeface.create(Typeface.DEFAULT_BOLD, Typeface.BOLD));
 
 
