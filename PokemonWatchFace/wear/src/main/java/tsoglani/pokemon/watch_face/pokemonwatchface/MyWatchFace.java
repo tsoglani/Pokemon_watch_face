@@ -1167,9 +1167,14 @@ public class MyWatchFace extends CanvasWatchFaceService {
             Paint transPaintWhite, transPaintBlack;
             transPaintWhite = new Paint();
             transPaintBlack = new Paint();
-            transPaintWhite.setColor(getColorWithAlpha(getResources().getColor(R.color.blockBackground), 0.6f));
+//            transPaintWhite.setColor(getColorWithAlpha(getResources().getColor(R.color.blockBackground), 0.6f));
+            transPaintWhite.setColor((getResources().getColor(R.color.transparent_black_percent_60)));
+
             transPaintBlack.setColor(getResources().getColor(R.color.transparent_black_percent_60));
-            canvas.drawRect(blockStartX, blockStartY, blockStartX + blockScaledBitmap.getWidth(), blockStartY + blockScaledBitmap.getHeight(), (isInAmbientMode()) ? transPaintBlack : transPaintWhite);
+
+
+float ends=(!isInAmbientMode())? numberStartY + (int) (num1Bitmap.getHeight() ):blockStartY + blockScaledBitmap.getHeight();
+            canvas.drawRect(blockStartX, blockStartY, blockStartX + blockScaledBitmap.getWidth(), ends, (isInAmbientMode()) ? transPaintBlack : transPaintWhite);
 
 
 //            canvas.drawBitmap(isInAmbientMode() ? blockBitmap_abc_Scalled : blockScaledBitmap, width/2+10, blockStartY, null);
@@ -1236,7 +1241,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
                 paint3.setColor(getResources().getColor(R.color.black_pressed));
                 grayPartenergysItemRect.set(hourX + dpToPx(22), energyBottomY - distanceY,
                         hourTotalEndWidth, energyBottomY);
-                float distanseGreen = Math.abs(grayPartenergysItemRect.right - grayPartenergysItemRect.right * ((((usedTempHour) * 60 + (tempMinute) + mTime.second) / (24.0f * 60 + 59))));
+                float distanseGreen = Math.abs(  (grayPartenergysItemRect.left-grayPartenergysItemRect.right) * (1-(((usedTempHour) * 60 + (tempMinute) + mTime.second) / (24.0f * 60 + 59))));
 
 //                Paint grayPaint=new Paint();
 //                paint2.setColor(getResources().getColor(R.color.dark_grey));
@@ -1245,7 +1250,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
 
                 Log.e("distanseGreen" + usedTempHour, hourExtra + " " + distanseGreen);
 
-                canvas.drawRect(grayPartenergysItemRect.left, energyBottomY - distanceY, distanseGreen, energyBottomY, greenPaint);
+                canvas.drawRect(grayPartenergysItemRect.left, energyBottomY - distanceY,grayPartenergysItemRect.left+ distanseGreen, energyBottomY, greenPaint);
 
 
 //
