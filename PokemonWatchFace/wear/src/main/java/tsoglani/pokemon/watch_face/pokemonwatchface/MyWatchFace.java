@@ -234,18 +234,19 @@ public class MyWatchFace extends CanvasWatchFaceService {
 
 
         private void wakeLock() {
-
-            wl.acquire();
-
+            try{
+                wl.acquire();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
 
         }
 
         private void wakeUnlock() {
-            try {
+            try{
                 wl.release();
-            } catch (Exception e) {
+            }catch (Exception e){
                 e.printStackTrace();
-                changeAnimation();
             }
 
         }
