@@ -1090,6 +1090,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
         boolean isHourChanged = false;
         private int previousHour = -1, previousMinute = -1, previousSecond = -1;
         boolean isFlashing = true;
+        boolean previousIs24HourType=is24HourType;
 
         @Override
         public void onDraw(Canvas canvas, Rect bounds) {
@@ -1138,6 +1139,9 @@ public class MyWatchFace extends CanvasWatchFaceService {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            }
+            if(previousIs24HourType!=is24HourType){
+                previousHour=tempHour;
             }
 
             if (tempHour < 10) {
@@ -1445,7 +1449,7 @@ float ends=(!isInAmbientMode())? numberStartY + (int) (num1Bitmap.getHeight() ):
 //            else {
 //                animationCounter = 0;
 //            }
-
+            previousIs24HourType=is24HourType;
             previousHour = tempHour;
             previousMinute = tempMinute;
         }
