@@ -206,7 +206,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
             is24HourType = Settings.getSharedPref(getApplicationContext(), Settings.HOUR_TYPE, true);
             isBatteryVisible = Settings.getSharedPref(getApplicationContext(), Settings.ENABLE_BATTERY, false);
 
-            isDateVisible = Settings.getSharedPref(getApplicationContext(), Settings.DATE_TYPE, false);
+            isDateVisible = Settings.getSharedPref(getApplicationContext(), Settings.DATE_TYPE, true);
             isEnableAnimation = Settings.getSharedPref(getApplicationContext(), Settings.ENABLE_ANIMATION, true);
             setWatchFaceStyle(new WatchFaceStyle.Builder(MyWatchFace.this)
                     .setCardPeekMode(WatchFaceStyle.PEEK_MODE_VARIABLE)
@@ -1184,7 +1184,7 @@ float ends=(!isInAmbientMode())? numberStartY + (int) (num1Bitmap.getHeight() ):
 
 //            canvas.drawBitmap(isInAmbientMode() ? blockBitmap_abc_Scalled : blockScaledBitmap, width/2+10, blockStartY, null);
 
-            if (!isInAmbientMode()) {// draw energy
+//            if (!isInAmbientMode()) {// draw energy
                 Paint transPaint = new Paint();
                 transPaint.setColor(getResources().getColor(R.color.transparent_black_percent_75));
 //                canvas.drawRect(width/2-blockScaledBitmap.getWidth()-10, blockStartY,width/2-blockScaledBitmap.getWidth()-10+ blockScaledBitmap.getWidth(), blockStartY+blockScaledBitmap.getHeight(), transPaint);
@@ -1192,11 +1192,11 @@ float ends=(!isInAmbientMode())? numberStartY + (int) (num1Bitmap.getHeight() ):
 
 
                 Paint grayPaint = new Paint();
-                grayPaint.setColor(getResources().getColor(R.color.powergray));
+                grayPaint.setColor(getResources().getColor((isInAmbientMode()?R.color.DimGray:R.color.powergray)));
                 Paint whitePaint = new Paint();
-                whitePaint.setColor(getResources().getColor(R.color.white));
+                whitePaint.setColor(getResources().getColor((isInAmbientMode()?R.color.transparent_white_percent_55:R.color.white)));
                 Paint greenPaint = new Paint();
-                greenPaint.setColor(getResources().getColor(R.color.powerGreen));
+                greenPaint.setColor(getResources().getColor(isInAmbientMode()?R.color.LightCyan:R.color.powerGreen));
                 float hourX = blockStartX + dpToPx(30);
 
                 float hourTotalEndWidth = hourX + dpToPx(70);
@@ -1211,14 +1211,14 @@ float ends=(!isInAmbientMode())? numberStartY + (int) (num1Bitmap.getHeight() ):
 
 //                Log.e(Float.toString((usedTempHour)*60*60+(tempMinute)*60+mTime.second),"result "+23.0f*60*60);
 
-                if(!isInAmbientMode()){
+//                if(!isInAmbientMode()){
                     Paint transPaintWhite2;
                     transPaintWhite2 = new Paint();
                     transPaintWhite2.setColor(getColorWithAlpha(getResources().getColor(R.color.blockBackground), 0.8f));
                     canvas.drawRect(blockStartX,  numberStartY + (int) (num1Bitmap.getHeight()  )
                             , blockStartX + blockScaledBitmap.getWidth(), blockStartY + blockScaledBitmap.getHeight(),  transPaintWhite2);
 
-                }
+//                }
 
 
 //                RectF energyRect=new RectF();
@@ -1232,12 +1232,12 @@ float ends=(!isInAmbientMode())? numberStartY + (int) (num1Bitmap.getHeight() ):
                 whitePartenergysItemRect.set(hourX + dpToPx(20), energyBottomY - distanceY - dpToPx(1),
                         hourTotalEndWidth + dpToPx(1), energyBottomY + dpToPx(1));
                 canvas.drawRect(AllenergysItemRect, grayPaint);
-                Paint paint2 = new Paint();
-                paint2.setTextSize(dpToPx(10));
-                paint2.setTypeface(Typeface.create(Typeface.DEFAULT_BOLD, Typeface.BOLD));
+                Paint paint4 = new Paint();
+                paint4.setTextSize(dpToPx(10));
+                paint4.setTypeface(Typeface.create(Typeface.DEFAULT_BOLD, Typeface.BOLD));
 
-                paint2.setColor(getResources().getColor(R.color.textGold));
-                canvas.drawText("DT", (hourX - dpToPx(2)), energyBottomY + dpToPx(1), paint2);
+                paint4.setColor(getResources().getColor(R.color.textGold));
+                canvas.drawText("DT", (hourX - dpToPx(2)), energyBottomY + dpToPx(1), paint4);
                 canvas.drawRect(whitePartenergysItemRect, whitePaint);
 
 
@@ -1253,7 +1253,7 @@ float ends=(!isInAmbientMode())? numberStartY + (int) (num1Bitmap.getHeight() ):
                 canvas.drawRect(grayPartenergysItemRect, paint3);
 
 
-                Log.e("distanseGreen" + usedTempHour, hourExtra + " " + distanseGreen);
+//                Log.e("distanseGreen" + usedTempHour, hourExtra + " " + distanseGreen);
 
                 canvas.drawRect(grayPartenergysItemRect.left, energyBottomY - distanceY,grayPartenergysItemRect.left+ distanseGreen, energyBottomY, greenPaint);
 
@@ -1274,7 +1274,7 @@ float ends=(!isInAmbientMode())? numberStartY + (int) (num1Bitmap.getHeight() ):
 //                canvas.drawRect(minX, energyBottomY-distanceY,minX+distanseMinGreen, energyBottomY, greenPaint);
 //                canvas.drawRect(minX+distanseMinGreen, energyBottomY-distanceY, minTotalEndWidth, energyBottomY, redPaint);
 
-            }
+//            }
             if (!isInAmbientMode()) {
                 if (previousMinute != tempMinute) {
 
@@ -1283,6 +1283,13 @@ float ends=(!isInAmbientMode())? numberStartY + (int) (num1Bitmap.getHeight() ):
 //                if (timeTolayAnimaton) {
                 playAnim(canvas);
 //                }
+            }else{
+
+
+                if(isEnableAnimation) {
+                    final BitmapDrawable myDrawable = new BitmapDrawable(getResources(), myGif.getFrames()[animationCounter].getImage());
+                    canvas.drawBitmap(getAmbienceGifImage(getScaledBitmap(myDrawable.getBitmap())), 0, 0, paint);
+                }
             }
 
 
@@ -1352,7 +1359,7 @@ float ends=(!isInAmbientMode())? numberStartY + (int) (num1Bitmap.getHeight() ):
 
 
 
-            if (!isInAmbientMode() && isDateVisible) {
+            if ( isDateVisible) {
                 Calendar c = Calendar.getInstance();
 
                 String formattedDate = c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.MONTH) + "/" + Integer.toString(c.get(Calendar.YEAR)).substring(Integer.toString(c.get(Calendar.YEAR)).length() - 2);
@@ -1368,7 +1375,7 @@ float ends=(!isInAmbientMode())? numberStartY + (int) (num1Bitmap.getHeight() ):
                     canvas.drawText(formattedDate, (int) (blockStartX + blockScaledBitmap.getWidth() - 2f * num1Bitmap.getWidth()),
                             num1Bitmap.getHeight() + numberStartY + (int) ((blockScaledBitmap.getHeight() - (num4Bitmap.getHeight())) / 2.5), paint2);
                 }
-            } else if (!isInAmbientMode() && !isDateVisible) {
+            } else if (!isDateVisible) {
                 canvas.drawText(pokemonName, (int) (numberHourX1 + num1Bitmap.getHeight() / 3),
                         (int) ((energyBottomY - distanceY - dpToPx(5))), paint2);
             }
@@ -1453,6 +1460,44 @@ float ends=(!isInAmbientMode())? numberStartY + (int) (num1Bitmap.getHeight() ):
             previousIs24HourType=is24HourType;
             previousHour = tempHour;
             previousMinute = tempMinute;
+        }
+
+
+        private Bitmap getAmbienceGifImage(Bitmap src) {
+            // constant factors
+            final double GS_RED = 0.299;
+            final double GS_GREEN = 0.587;
+            final double GS_BLUE = 0.114;
+
+            // create output bitmap
+            Bitmap bmOut = Bitmap.createBitmap(src.getWidth(), src.getHeight(), src.getConfig());
+            // pixel information
+            int A, R, G, B;
+            int pixel;
+
+            // get image size
+            int width = src.getWidth();
+            int height = src.getHeight();
+
+            // scan through every single pixel
+            for(int x = 0; x < width; ++x) {
+                for(int y = 0; y < height; ++y) {
+                    // get one pixel color
+                    pixel = src.getPixel(x, y);
+                    // retrieve color of all channels
+                    A = Color.alpha(pixel);
+                    R = Color.red(pixel);
+                    G = Color.green(pixel);
+                    B = Color.blue(pixel);
+                    // take conversion up to one single value
+                    R = G = B = (int)(GS_RED * R + GS_GREEN * G + GS_BLUE * B);
+                    // set new pixel color to output bitmap
+                    bmOut.setPixel(x, y, Color.argb(A, R, G, B));
+                }
+            }
+
+            // return final image
+            return bmOut;
         }
 
         public int getColorWithAlpha(int color, float ratio) {
