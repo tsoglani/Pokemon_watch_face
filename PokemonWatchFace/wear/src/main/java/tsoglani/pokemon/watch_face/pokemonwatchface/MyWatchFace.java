@@ -800,6 +800,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
 
 
                     }
+                    resizedBitmap=null;
 
                     wakeUnlock();
                     if (shouldTimerBeRunning()) {
