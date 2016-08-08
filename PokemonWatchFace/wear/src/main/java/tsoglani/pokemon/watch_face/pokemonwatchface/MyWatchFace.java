@@ -607,24 +607,29 @@ public class MyWatchFace extends CanvasWatchFaceService {
 //            }
 
 
-            for(int y = 0; y < bmp.getHeight(); y++)
-            {
-                for(int x = 0; x < bmp.getWidth(); x++)
-                {
-                    int alpha = (bmp.getPixel(x, y) >> 24) & 255;
-                    if(alpha > 0)   // pixel is not 100% transparent
-                    {
-                        if(x < minX)
-                            minX = x;
-                        if(x > maxX)
-                            maxX = x;
-                        if(y < minY)
-                            minY = y;
-                        if(y > maxY)
-                            maxY = y;
-                    }
-                }
-            }
+//            for(int y = 0; y < bmp.getHeight(); y++)
+//            {
+//                for(int x = 0; x < bmp.getWidth(); x++)
+//                {
+//                    int alpha = (bmp.getPixel(x, y) >> 24) & 255;
+//                    if(alpha > 0)   // pixel is not 100% transparent
+//                    {
+//                        if(x < minX)
+//                            minX = x;
+//                        if(x > maxX)
+//                            maxX = x;
+//                        if(y < minY)
+//                            minY = y;
+//                        if(y > maxY)
+//                            maxY = y;
+//                    }
+//                }
+//            }
+
+            minX=getMinX(bmp);
+            maxX=getMaxX(bmp);
+            minY=getMinY(bmp);
+            maxY=getMaxY(bmp);
             if((maxX < minX) || (maxY < minY))
                 return null; // Bitmap is entirely transparent
             animationTop=(int)(minY*trimSizeY);
@@ -637,6 +642,109 @@ public class MyWatchFace extends CanvasWatchFaceService {
 
 
         }
+
+        private int getMinX(Bitmap bmp){
+            int minX=bmp.getWidth();
+
+            for(int y = 0; y < bmp.getHeight(); y++)
+            {
+                for(int x = 0; x <minX; x++)
+                {
+                    int alpha = (bmp.getPixel(x, y) >> 24) & 255;
+                    if(alpha > 0)   // pixel is not 100% transparent
+                    {
+                        if(x < minX){
+                            minX = x;
+                            break;}
+
+                    }
+                }
+            }
+
+//            if(minx==bit.getWidth()){
+//                minx=0;
+//            }
+            return minX;
+
+        }
+
+
+        private int getMaxX(Bitmap bmp){
+            int maxX=0;
+
+            for(int y = 0; y < bmp.getHeight(); y++)
+            {
+                for(int x = bmp.getWidth()-1; x >maxX; x--)
+                {
+                    int alpha = (bmp.getPixel(x, y) >> 24) & 255;
+                    if(alpha > 0)   // pixel is not 100% transparent
+                    {
+                        if(x > maxX) {
+                            maxX = x;
+
+                            break;}
+
+                    }
+                }
+            }
+
+//            if(minx==bit.getWidth()){
+//                minx=0;
+//            }
+            return maxX;
+
+        }
+        private int getMaxY(Bitmap bmp){
+            int maxY=0;
+
+            for(int x = 0; x < bmp.getHeight(); x++)
+            {
+                for(int y = bmp.getWidth()-1;y >maxY; y--)
+                {
+                    int alpha = (bmp.getPixel(x, y) >> 24) & 255;
+                    if(alpha > 0)   // pixel is not 100% transparent
+                    {
+                        if(y > maxY){
+                            maxY = y;
+
+                            break;}
+
+                    }
+                }
+            }
+
+//            if(minx==bit.getWidth()){
+//                minx=0;
+//            }
+            return maxY;
+
+        }
+
+        private int getMinY(Bitmap bmp){
+            int minY=bmp.getWidth();
+
+            for(int x = 0; x < bmp.getHeight(); x++)
+            {
+                for(int y = 0; y <minY; y++)
+                {
+                    int alpha = (bmp.getPixel(x, y) >> 24) & 255;
+                    if(alpha > 0)   // pixel is not 100% transparent
+                    {
+                        if(y < minY){
+                            minY = y;
+                            break;}
+
+                    }
+                }
+            }
+
+//            if(minx==bit.getWidth()){
+//                minx=0;
+//            }
+            return minY;
+
+        }
+
         private void updateBrightness(int brightness) {
             try {
                 if (brightness < 0)
