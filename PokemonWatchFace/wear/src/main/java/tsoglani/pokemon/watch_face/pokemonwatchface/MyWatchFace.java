@@ -1415,9 +1415,11 @@ public class MyWatchFace extends CanvasWatchFaceService {
 
         private void setAmbienceBackground(int id) {
 
-            backgroundBitmap = ((BitmapDrawable) getDrawable(backgroundList_abc.get(id))).getBitmap();
+//            backgroundBitmap = ((BitmapDrawable) getDrawable(backgroundList_abc.get(id))).getBitmap();
+            backgroundBitmap_abc = ((BitmapDrawable) getDrawable(backgroundList_abc.get(id))).getBitmap();
 
-            backgroundBitmapScaled = Bitmap.createScaledBitmap(backgroundBitmap, (int) (((float) backgroundBitmap.getWidth()) * mainScaleX), (int) (((float) backgroundBitmap.getHeight()) * mainScaleY), true);
+//            backgroundBitmapScaled = Bitmap.createScaledBitmap(backgroundBitmap, (int) (((float) backgroundBitmap.getWidth()) * mainScaleX), (int) (((float) backgroundBitmap.getHeight()) * mainScaleY), true);
+            backgroundBitmapScaled_abc= getScaledBitmap(backgroundBitmap_abc);
 
         }
 
