@@ -206,8 +206,12 @@ public class MyWatchFace extends CanvasWatchFaceService {
         @Override
         public void onCreate(SurfaceHolder holder) {
             super.onCreate(holder);
-            initAnimImageList();
-            PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+            new Thread(){
+                @Override
+                public void run() {
+                    initAnimImageList();
+                }
+            }.start();            PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
             wl = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "My Tag");
             isChangingBackgoundByTouch = Settings.getSharedPref(getApplicationContext(), Settings.CHANGE_BACKGROUND_ON_CLICK, true);
             isChangingAnimationByTouch = Settings.getSharedPref(getApplicationContext(), Settings.CHANGE_ANIMATION_ON_CLICK, false);
@@ -541,29 +545,31 @@ public class MyWatchFace extends CanvasWatchFaceService {
         private void drawAnim(Canvas canvas,boolean playFirstImage){
             previousAnimationCounter=animationCounter;
             previousAnimationNumber=animationNumber;
-            if(!playFirstImage&&resizedBitmap ==null) {
-                canvas.drawBitmap(listOfAnimationImages.get(animationNumber),Integer.parseInt(listOfAnimationImagesLocation.get(animationNumber).split(",,")[0]), Integer.parseInt(listOfAnimationImagesLocation.get(animationNumber).split(",,")[1]), null);
+            try {
+                if (!playFirstImage && resizedBitmap == null) {
+                    canvas.drawBitmap(listOfAnimationImages.get(animationNumber), Integer.parseInt(listOfAnimationImagesLocation.get(animationNumber).split(",,")[0]), Integer.parseInt(listOfAnimationImagesLocation.get(animationNumber).split(",,")[1]), null);
+                    return;
+                }
+                if (animationCounter != 0) {
+                    animationTop = 0;
+                    animationLeft = 0;
+                }
 
-                return;
-            }
-            if(animationCounter!=0){
-                animationTop=0;
-                animationLeft=0;
-            }
 
-
-            if(playFirstImage){
+                if (playFirstImage) {
 //                if(previousAnimationNumber!=animationNumber||MyWatchFace.previousAnimationCounter!=MyWatchFace.animationCounter||MyWatchFace.originalBitmap ==null||MyWatchFace.resizedBitmap ==null) {
 ////                    MyWatchFace.resizedBitmap =listOfAnimationImages.get(animationNumber);
 //                Log.e("play ", "true   ");
 //                }
-                canvas.drawBitmap(listOfAnimationImages.get(animationNumber),Integer.parseInt(listOfAnimationImagesLocation.get(animationNumber).split(",,")[0]), Integer.parseInt(listOfAnimationImagesLocation.get(animationNumber).split(",,")[1]), null);
+                    canvas.drawBitmap(listOfAnimationImages.get(animationNumber), Integer.parseInt(listOfAnimationImagesLocation.get(animationNumber).split(",,")[0]), Integer.parseInt(listOfAnimationImagesLocation.get(animationNumber).split(",,")[1]), null);
 
-            }
-            else {
+                } else {
 //                Log.e("play ", "false   ");
-                canvas.drawBitmap(resizedBitmap, animationLeft, animationTop, null);
+                    canvas.drawBitmap(resizedBitmap, animationLeft, animationTop, null);
 
+                }
+            }catch (Exception e){
+                e.printStackTrace();
             }
         }
 
