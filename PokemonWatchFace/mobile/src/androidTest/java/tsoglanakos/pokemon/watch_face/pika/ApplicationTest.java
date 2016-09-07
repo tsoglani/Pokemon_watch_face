@@ -1,4 +1,4 @@
-package tsoglani.pokemon.watch_face.pokemonwatchface;
+package tsoglanakos.pokemon.watch_face.pika;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

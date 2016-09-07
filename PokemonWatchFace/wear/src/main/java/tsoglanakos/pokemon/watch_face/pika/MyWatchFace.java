@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package tsoglani.pokemon.watch_face.pokemonwatchface;
+package tsoglanakos.pokemon.watch_face.pika;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

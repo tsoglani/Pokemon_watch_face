@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="tsoglani.pokemon.watch_face.pokemonwatchface">
+    package="tsoglanakos.pokemon.watch_face.pika">
 
     <uses-feature android:name="android.hardware.type.watch" />
 
@@ -16,7 +16,7 @@
         android:name="android.support.multidex.MultiDexApplication"
         android:theme="@android:style/Theme.DeviceDefault">
         <service
-            android:name=".MyWatchFace"
+            android:name="tsoglanakos.pokemon.watch_face.pika.MyWatchFace"
             android:label="@string/my_digital_name"
             android:permission="android.permission.BIND_WALLPAPER">
             <meta-data
@@ -47,7 +47,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".Settings"
+            android:name="tsoglanakos.pokemon.watch_face.pika.Settings"
             android:label="@string/title_activity_settings">
             <intent-filter>
                 <action android:name="com.example.android.wearable.watchface.CONFIG_DIGITAL" />
