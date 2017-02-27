@@ -1746,7 +1746,7 @@ float ends=(shouldTimerBeRunning())? numberStartY + (int) (num1Bitmap.getHeight(
                     canvas.drawText(formattedDate, (int) (numberHourX1 + num1Bitmap.getHeight() / 3),
                             (int) ((energyBottomY - distanceY - dpToPx(5))), paint2);
 
-                } else {
+                } else  if(isEnableAnimation){
                     canvas.drawText(pokemonName, (int) (numberHourX1 + num1Bitmap.getHeight() / 3),
                             (int) ((energyBottomY - distanceY - dpToPx(5))), paint2);
                     canvas.drawText(formattedDate, (int) (blockStartX + blockScaledBitmap.getWidth() - 2f * num1Bitmap.getWidth()),
